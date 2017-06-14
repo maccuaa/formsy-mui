@@ -7,8 +7,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {mount} from 'enzyme';
 import {Form} from 'formsy-react';
 
-import Checkbox from 'material-ui/Checkbox';
-import FormsyCheckbox from './FormsyCheckbox';
+import Toggle from 'material-ui/Toggle';
+import FormsyToggle from './FormsyToggle';
 
 import test from 'tape';
 import Sinon from 'sinon';
@@ -19,33 +19,33 @@ const mountWithContext = (node) => mount(node, {
   childContextTypes: {muiTheme: PropTypes.object.isRequired}
 });
 
-test('FormsyCheckbox renders a material-ui Checkbox', (assert) => {
+test('FormsyToggle renders a material-ui Toggle', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyCheckbox name='test' />
+      <FormsyToggle name='test' />
     </Form>
   );
 
-  assert.equals(wrapper.find(Checkbox).length, 1);
+  assert.equals(wrapper.find(Toggle).length, 1);
 
   assert.end();
 });
 
-test('FormsyCheckbox sends value to Formsy Form', (assert) => {
+test('FormsyToggle sends value to Formsy Form', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyCheckbox name='test' checked />
+      <FormsyToggle name='test' toggled />
     </Form>
   );
 
   const formsyForm = wrapper.find(Form).node;
 
-  const formsyCheckbox = wrapper.find(FormsyCheckbox).node;
+  const formsyToggle = wrapper.find(FormsyToggle).node;
 
   const input = wrapper.find('input').node;
 
-  // Make sure the formsyCheckbox component has the right value
-  assert.true(formsyCheckbox.getValue());
+  // Make sure the formsyToggle component has the right value
+  assert.true(formsyToggle.getValue());
 
   // Make sure the Formsy Form component has the right value
   assert.true(formsyForm.getCurrentValues().test);
@@ -56,16 +56,16 @@ test('FormsyCheckbox sends value to Formsy Form', (assert) => {
   assert.end();
 });
 
-test('FormsyCheckbox change event propogates value to Formsy Form', (assert) => {
+test('FormsyToggle change event propogates value to Formsy Form', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyCheckbox name='test' checked={false} />
+      <FormsyToggle name='test' toggled={false} />
     </Form>
   );
 
   const formsyForm = wrapper.find(Form).node;
 
-  const formsyCheckbox = wrapper.find(FormsyCheckbox).node;
+  const formsyToggle = wrapper.find(FormsyToggle).node;
 
   const input = wrapper.find('input');
 
@@ -73,8 +73,8 @@ test('FormsyCheckbox change event propogates value to Formsy Form', (assert) => 
 
   input.simulate('change');
 
-  // Make sure the formsyCheckbox component has the right value
-  assert.true(formsyCheckbox.getValue());
+  // Make sure the formsyToggle component has the right value
+  assert.true(formsyToggle.getValue());
 
   // Make sure the Formsy Form component has the right value
   assert.true(formsyForm.getCurrentValues().test);
@@ -82,14 +82,14 @@ test('FormsyCheckbox change event propogates value to Formsy Form', (assert) => 
   assert.end();
 });
 
-test('FormsyCheckbox resetValue sets value back to original value', (assert) => {
+test('FormsyToggle resetValue sets value back to original value', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyCheckbox name='test' checked={false} />
+      <FormsyToggle name='test' toggled={false} />
     </Form>
   );
 
-  const formsyCheckbox = wrapper.find(FormsyCheckbox).node;
+  const formsyToggle = wrapper.find(FormsyToggle).node;
 
   const input = wrapper.find('input');
 
@@ -99,23 +99,23 @@ test('FormsyCheckbox resetValue sets value back to original value', (assert) => 
 
   input.simulate('change');
 
-  assert.true(formsyCheckbox.getValue());
+  assert.true(formsyToggle.getValue());
 
-  formsyCheckbox.resetValue();
+  formsyToggle.resetValue();
 
-  assert.false(formsyCheckbox.getValue());
+  assert.false(formsyToggle.getValue());
 
   assert.false(input.node.checked);
 
   assert.end();
 });
 
-test('FormsyCheckbox onChange prop is called', (assert) => {
+test('FormsyToggle onChange prop is called', (assert) => {
   const onChangeSpy = Sinon.spy();
 
   const wrapper = mountWithContext(
     <Form>
-      <FormsyCheckbox name='test' onChange={onChangeSpy} />
+      <FormsyToggle name='test' onChange={onChangeSpy} />
     </Form>
   );
 

@@ -11,8 +11,8 @@ import Formsy, {Form} from 'formsy-react';
 import test from 'tape';
 import Sinon from 'sinon';
 
-import DatePicker from 'material-ui/DatePicker';
-import FormsyDate from './FormsyDate';
+import TimePicker from 'material-ui/TimePicker';
+import FormsyTime from './FormsyTime';
 
 // TODO - Remove when MUI doesn't depend on this anymore
 injectTapEvent();
@@ -27,22 +27,22 @@ Formsy.addValidationRule('alwaysFalse', () => { return false; }, true);
 Formsy.addValidationRule('alwaysTrue', () => { return true; }, true);
 const expected = new Date(1448967059892); // Tue, 01 Dec 2015 10:50:59 GMT
 
-test('FormsyDate renders a material-ui DatePicker', (assert) => {
+test('FormsyTime renders a material-ui TimePicker', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyDate name='test' />
+      <FormsyTime name='test' />
     </Form>
   );
 
-  assert.equals(wrapper.find(DatePicker).length, 1);
+  assert.equals(wrapper.find(TimePicker).length, 1);
 
   assert.end();
 });
 
-test('FormsyDate value prop sends value to Formsy Form', (assert) => {
+test('FormsyTime value prop sends value to Formsy Form', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyDate name='test' value={expected} />
+      <FormsyTime name='test' value={expected} />
     </Form>
   );
 
@@ -58,48 +58,48 @@ test('FormsyDate value prop sends value to Formsy Form', (assert) => {
   assert.end();
 });
 
-test('FormsyDate validation Errors are displayed', (assert) => {
+test('FormsyTime validation Errors are displayed', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyDate name='test' validations='alwaysFalse' validationError='foo' value={new Date()} />
+      <FormsyTime name='test' validations='alwaysFalse' validationError='foo' value={new Date()} />
     </Form>
   );
 
-  const formsyDate = wrapper.find(FormsyDate).node;
+  const formsyTime = wrapper.find(FormsyTime).node;
 
   const textField = wrapper.find('TextField').node;
 
-  assert.equals(formsyDate.getErrorMessage(), 'foo');
+  assert.equals(formsyTime.getErrorMessage(), 'foo');
 
   assert.equals(textField.state.errorText, 'foo');
 
-  assert.false(formsyDate.isValid());
+  assert.false(formsyTime.isValid());
 
   assert.end();
 });
 
-test('FormsyDate validation Errors are not displayed', (assert) => {
+test('FormsyTime validation Errors are not displayed', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyDate name='test' validations='alwaysTrue' validationError='foo' value={new Date()} />
+      <FormsyTime name='test' validations='alwaysTrue' validationError='foo' value={new Date()} />
     </Form>
   );
 
-  const formsyDate = wrapper.find(FormsyDate).node;
+  const formsyTime = wrapper.find(FormsyTime).node;
 
-  assert.equals(formsyDate.getErrorMessage(), null);
+  assert.equals(formsyTime.getErrorMessage(), null);
 
-  assert.true(formsyDate.isValid());
+  assert.true(formsyTime.isValid());
 
   assert.end();
 });
 
-test('FormsyDate onChange prop is called', (assert) => {
+test('FormsyTime onChange prop is called', (assert) => {
   const onChangeSpy = Sinon.spy();
 
   const wrapper = mountWithContext(
     <Form>
-      <FormsyDate name='test' onChange={onChangeSpy} />
+      <FormsyTime name='test' onChange={onChangeSpy} />
     </Form>
   );
 
@@ -110,26 +110,26 @@ test('FormsyDate onChange prop is called', (assert) => {
   assert.end();
 });
 
-test('FormsyDate resetValue sets value back to original value', (assert) => {
+test('FormsyTime resetValue sets value back to original value', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyDate name='test' value={expected} />
+      <FormsyTime name='test' value={expected} />
     </Form>
   );
 
   const newDate = new Date();
 
-  const formsyDate = wrapper.find(FormsyDate).node;
+  const formsyTime = wrapper.find(FormsyTime).node;
 
-  assert.equals(formsyDate.getValue(), expected);
+  assert.equals(formsyTime.getValue(), expected);
 
   wrapper.find('input').simulate('change', {target: {value: newDate}});
 
-  assert.equals(formsyDate.getValue(), newDate);
+  assert.equals(formsyTime.getValue(), newDate);
 
-  formsyDate.resetValue();
+  formsyTime.resetValue();
 
-  assert.equals(formsyDate.getValue(), expected);
+  assert.equals(formsyTime.getValue(), expected);
 
   assert.end();
 });

@@ -7,11 +7,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {mount} from 'enzyme';
 import {Form} from 'formsy-react';
 
-import AutoComplete from 'material-ui/AutoComplete';
-import FormsyAutoComplete from './FormsyAutoComplete';
-
 import test from 'tape';
 import Sinon from 'sinon';
+
+import AutoComplete from 'material-ui/AutoComplete';
+import FormsyAutoComplete from './FormsyAutoComplete';
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -58,10 +58,10 @@ test('FormsyAutoComplete change event propogates value to Formsy Form', (assert)
   assert.end();
 });
 
-test('FormsyAutoComplete value prop sends value to Formsy Form', (assert) => {
+test('FormsyAutoComplete searchText prop sends value to Formsy Form', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} value='foo' />
+      <FormsyAutoComplete name='test' dataSource={[]} searchText='foo' />
     </Form>
   );
 
@@ -79,7 +79,7 @@ test('FormsyAutoComplete value prop sends value to Formsy Form', (assert) => {
 test('FormsyAutoComplete validation Errors are displayed', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} validations='maxLength:2' validationError='foo' value='bar' />
+      <FormsyAutoComplete name='test' dataSource={[]} validations='maxLength:2' validationError='foo' searchText='bar' />
     </Form>
   );
 
@@ -91,7 +91,7 @@ test('FormsyAutoComplete validation Errors are displayed', (assert) => {
 
   assert.equals(textField.state.errorText, 'foo');
 
-  assert.equals(formsyAutoComplete.isValid(), false);
+  assert.false(formsyAutoComplete.isValid());
 
   assert.end();
 });
@@ -99,7 +99,7 @@ test('FormsyAutoComplete validation Errors are displayed', (assert) => {
 test('FormsyAutoComplete validation Errors are not displayed', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} validations='maxLength:3' validationError='foo' value='bar' />
+      <FormsyAutoComplete name='test' dataSource={[]} validations='maxLength:3' validationError='foo' searchText='bar' />
     </Form>
   );
 
@@ -107,7 +107,7 @@ test('FormsyAutoComplete validation Errors are not displayed', (assert) => {
 
   assert.equals(formsyAutoComplete.getErrorMessage(), null);
 
-  assert.equals(formsyAutoComplete.isValid(), true);
+  assert.true(formsyAutoComplete.isValid());
 
   assert.end();
 });
@@ -115,7 +115,7 @@ test('FormsyAutoComplete validation Errors are not displayed', (assert) => {
 test('FormsyAutoComplete resetValue sets value back to original value', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} value='foo' />
+      <FormsyAutoComplete name='test' dataSource={[]} searchText='foo' />
     </Form>
   );
 
@@ -137,7 +137,7 @@ test('FormsyAutoComplete resetValue sets value back to original value', (assert)
 test('FormsyAutoComplete Blur event updates the value', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} value='foo' />
+      <FormsyAutoComplete name='test' dataSource={[]} searchText='foo' />
     </Form>
   );
 
@@ -163,7 +163,7 @@ test('FormsyAutoComplete onBlur prop is called', (assert) => {
 
   wrapper.find('input').simulate('blur');
 
-  assert.equals(onBlurSpy.calledOnce, true);
+  assert.true(onBlurSpy.calledOnce);
 
   assert.end();
 });
@@ -179,7 +179,7 @@ test('FormsyAutoComplete onChange prop is called', (assert) => {
 
   wrapper.find('input').simulate('change', {target: {value: 'bar'}});
 
-  assert.equals(onChangeSpy.calledOnce, true);
+  assert.true(onChangeSpy.calledOnce);
 
   assert.end();
 });
@@ -189,7 +189,7 @@ test('FormsyAutoComplete onKeyDown prop is called', (assert) => {
 
   const wrapper = mountWithContext(
     <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} onKeyDown={onKeyDownSpy} value='foo' />
+      <FormsyAutoComplete name='test' dataSource={[]} onKeyDown={onKeyDownSpy} searchText='foo' />
     </Form>
   );
 
@@ -199,7 +199,7 @@ test('FormsyAutoComplete onKeyDown prop is called', (assert) => {
 
   assert.equals(wrapper.find('input').node.value, 'bar');
 
-  assert.equals(onKeyDownSpy.calledOnce, true);
+  assert.true(onKeyDownSpy.calledOnce);
 
   assert.end();
 });
@@ -211,7 +211,7 @@ test('FormsyAutoComplete respects disabled prop of Formsy Form', (assert) => {
     </Form>
   );
 
-  assert.equals(wrapper.find('input').node.disabled, true);
+  assert.true(wrapper.find('input').node.disabled);
 
   assert.end();
 });
@@ -219,15 +219,15 @@ test('FormsyAutoComplete respects disabled prop of Formsy Form', (assert) => {
 test('FormsyAutoComplete disabled prop propagetes to Material UI AutoComplete', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} value='foo' disabled />
+      <FormsyAutoComplete name='test' dataSource={[]} searchText='foo' disabled />
     </Form>
   );
 
-  assert.equals(wrapper.find(FormsyAutoComplete).node.props.disabled, true);
+  assert.true(wrapper.find(FormsyAutoComplete).node.props.disabled);
 
-  assert.equals(wrapper.find(AutoComplete).node.props.disabled, true);
+  assert.true(wrapper.find(AutoComplete).node.props.disabled);
 
-  assert.equals(wrapper.find('input').node.disabled, true);
+  assert.true(wrapper.find('input').node.disabled);
 
   assert.end();
 });
@@ -235,17 +235,17 @@ test('FormsyAutoComplete disabled prop propagetes to Material UI AutoComplete', 
 test('FormsyAutoComplete allows overriding Formsy Form disabled prop', (assert) => {
   const wrapper = mountWithContext(
     <Form disabled>
-      <FormsyAutoComplete name='test' dataSource={[]} value='foo' disabled={false} />
+      <FormsyAutoComplete name='test' dataSource={[]} searchText='foo' disabled={false} />
     </Form>
   );
 
-  assert.equals(wrapper.node.props.disabled, true);
+  assert.true(wrapper.node.props.disabled);
 
-  assert.equals(wrapper.find(FormsyAutoComplete).node.props.disabled, false);
+  assert.false(wrapper.find(FormsyAutoComplete).node.props.disabled);
 
-  assert.equals(wrapper.find(AutoComplete).node.props.disabled, false);
+  assert.false(wrapper.find(AutoComplete).node.props.disabled);
 
-  assert.equals(wrapper.find('input').node.disabled, false);
+  assert.false(wrapper.find('input').node.disabled);
 
   assert.end();
 });
@@ -263,15 +263,15 @@ test('FormsyAutoComplete required prop invalidates form', (assert) => {
 
   const input = wrapper.find('input').node;
 
-  assert.equals(formsyForm.state.isValid, false);
+  assert.false(formsyForm.state.isValid);
 
-  assert.equals(formsyAutoComplete.isRequired(), true);
+  assert.true(formsyAutoComplete.isRequired());
 
-  assert.equals(formsyAutoComplete.showRequired(), true);
+  assert.true(formsyAutoComplete.showRequired());
 
-  assert.equals(formsyAutoComplete.isValidValue(), false);
+  assert.false(formsyAutoComplete.isValidValue());
 
-  assert.equals(input.required, true);
+  assert.true(input.required);
 
   assert.end();
 });

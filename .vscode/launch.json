@@ -9,12 +9,14 @@
       "request": "launch",
       "name": "Run Tests",
       "protocol": "inspector",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node.cmd",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+      "windows": {
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node.cmd"
+      },
       "runtimeArgs": [
         "--nolazy"
       ],"args": [
-        "src/FormsyAutoComplete/FormsyAutoComplete.spec.js",
-        "src/FormsyCheckbox/FormsyCheckbox.spec.js"
+        "test/index.js"
       ],
       "env": {
         "NODE_ENV": "development"

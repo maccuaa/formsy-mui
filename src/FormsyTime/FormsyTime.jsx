@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import DatePicker from 'material-ui/DatePicker';
+import TimePicker from 'material-ui/TimePicker';
 
-class FormsyDate extends Formsy.Mixin {
+class FormsyTime extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const {value, defaultDate} = props;
-    const date = value || defaultDate;
+    const {value, defaultTime} = props;
+    const time = value || defaultTime;
 
     this.state = Object.assign(this.state, {
-      _value: date,
-      _pristineValue: date
+      _value: time,
+      _pristineValue: time
     });
   }
 
@@ -23,7 +23,7 @@ class FormsyDate extends Formsy.Mixin {
 
   render () {
     const {
-      defaultDate,
+      defaultTime,
       onChange,
       value,
       ...rest
@@ -32,7 +32,7 @@ class FormsyDate extends Formsy.Mixin {
     const props = Object.assign({disabled: this.isFormDisabled()}, rest);
 
     return (
-      <DatePicker
+      <TimePicker
         {...props}
         errorText={this.getErrorMessage()}
         onChange={(e, v) => { this.handleChange(e, v); }}
@@ -42,10 +42,10 @@ class FormsyDate extends Formsy.Mixin {
   }
 }
 
-FormsyDate.propTypes = {
-  defaultDate: PropTypes.instanceOf(Date),
+FormsyTime.propTypes = {
+  defaultTime: PropTypes.instanceOf(Date),
   onChange: PropTypes.func,
   value: PropTypes.instanceOf(Date)
 };
 
-export default FormsyDate;
+export default FormsyTime;

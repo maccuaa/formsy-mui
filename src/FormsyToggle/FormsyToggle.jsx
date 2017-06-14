@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react';
-import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
 
-class FormsyCheckbox extends Formsy.Mixin {
+class FormsyToggle extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const {checked, defaultChecked} = props;
-    const value = checked || defaultChecked || false;
+    const {toggled, defaultToggled} = props;
+    const value = toggled || defaultToggled || false;
 
     this.state = Object.assign(this.state, {
       _value: value,
@@ -16,34 +16,34 @@ class FormsyCheckbox extends Formsy.Mixin {
     });
   }
 
-  handleCheck (event, value) {
+  handleToggle (event, value) {
     this.setValue(value);
     if (this.props.onChange) this.props.onChange(event, value);
   }
 
   render () {
     const {
-      checked,
-      defaultChecked,
+      toggled,
+      defaultToggled,
       ...rest
     } = this.removeFormsyProps(this.props);
 
     const props = Object.assign({disabled: this.isFormDisabled()}, rest);
 
     return (
-      <Checkbox
+      <Toggle
         {...props}
-        checked={this.getValue()}
-        onCheck={(e, v) => { this.handleCheck(e, v); }}
+        toggled={this.getValue()}
+        onToggle={(e, v) => { this.handleToggle(e, v); }}
       />
     );
   }
 }
 
-FormsyCheckbox.propTypes = {
-  checked: PropTypes.bool,
-  defaultChecked: PropTypes.bool,
-  onChange: PropTypes.func
+FormsyToggle.propTypes = {
+  defaultToggled: PropTypes.bool,
+  onChange: PropTypes.func,
+  toggled: PropTypes.bool
 };
 
-export default FormsyCheckbox;
+export default FormsyToggle;

@@ -5,9 +5,12 @@ import Formsy from 'formsy-react';
 import AutoComplete from 'material-ui/AutoComplete';
 
 class FormsyAutoComplete extends Formsy.Mixin {
-  componentWillMount () {
-    super.componentWillMount();
-    this.setValue(this.props.value || '');
+  constructor (props) {
+    super(props);
+    this.state = Object.assign(this.state, {
+      _value: props.searchText,
+      _pristineValue: props.searchText
+    });
   }
 
   handleBlur (event) {
@@ -29,15 +32,12 @@ class FormsyAutoComplete extends Formsy.Mixin {
     /*
       AutoComplete Props that are ignored and not passed to Material UI:
       - onUpdateInput
-      - searchText
       They are replaced with:
       - onChange
-      - value
     */
     const {
       onUpdateInput,
       searchText,
-      value,
       ...rest
     } = this.removeFormsyProps(this.props);
 
@@ -59,8 +59,7 @@ class FormsyAutoComplete extends Formsy.Mixin {
 FormsyAutoComplete.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  value: PropTypes.any
+  onKeyDown: PropTypes.func
 };
 
 export default FormsyAutoComplete;
