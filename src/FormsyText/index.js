@@ -1,2 +1,1 @@
-import FormsyText from './FormsyText';
-export default FormsyText;
+export default from './FormsyText';

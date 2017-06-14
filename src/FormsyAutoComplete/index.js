@@ -1,2 +1,1 @@
-import FormsyAutoComplete from './FormsyAutoComplete';
-export default FormsyAutoComplete;
+export default './FormsyAutoComplete';

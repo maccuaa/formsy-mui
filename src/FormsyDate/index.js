@@ -1,2 +1,1 @@
-import FormsyDate from './FormsyDate';
-export default FormsyDate;
+export default from './FormsyDate';

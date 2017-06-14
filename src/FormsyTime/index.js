@@ -1,2 +1,1 @@
-import FormsyTime from './FormsyTime';
-export default FormsyTime;
+export default from './FormsyTime';

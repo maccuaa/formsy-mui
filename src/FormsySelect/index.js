@@ -1,2 +1,1 @@
-import FormsySelect from './FormsySelect';
-export default FormsySelect;
+export default from './FormsySelect';

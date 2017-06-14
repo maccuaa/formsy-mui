@@ -1,2 +1,1 @@
-import FormsyRadio from './FormsyRadio';
-export default FormsyRadio;
+export default from './FormsyRadio';

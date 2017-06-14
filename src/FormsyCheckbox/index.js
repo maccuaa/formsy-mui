@@ -1,2 +1,1 @@
-import FormsyCheckbox from './FormsyCheckbox';
-export default FormsyCheckbox;
+export default from './FormsyCheckbox';

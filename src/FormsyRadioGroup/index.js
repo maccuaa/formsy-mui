@@ -1,2 +1,1 @@
-import RadioButtonGroup from './FormsyRadioGroup';
-export default RadioButtonGroup;
+export default from './FormsyRadioGroup';

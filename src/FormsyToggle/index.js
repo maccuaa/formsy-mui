@@ -1,2 +1,1 @@
-import FormsyToggle from './FormsyToggle';
-export default FormsyToggle;
+export default from './FormsyToggle';
