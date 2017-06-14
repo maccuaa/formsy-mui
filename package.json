@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:st-andrew/formsy-mui.git"
+    "url": "https://github.com/st-andrew/formsy-mui.git"
   },
   "bugs": {
     "url": "https://github.com/st-andrew/formsy-mui/issues"
