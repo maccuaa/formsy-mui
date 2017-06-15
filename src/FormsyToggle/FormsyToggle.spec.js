@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import {mount} from 'enzyme';
-import {Form} from 'formsy-react';
+import {Form} from 'formsy-react-2';
 
 import Toggle from 'material-ui/Toggle';
 import FormsyToggle from './FormsyToggle';

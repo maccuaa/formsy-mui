@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import {mount} from 'enzyme';
-import {Form} from 'formsy-react';
+import {Form} from 'formsy-react-2';
 
 import Checkbox from 'material-ui/Checkbox';
 import FormsyCheckbox from './FormsyCheckbox';

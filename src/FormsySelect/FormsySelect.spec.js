@@ -6,7 +6,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEvent from '../../test/injectTouchTap';
 
 import {mount} from 'enzyme';
-import Formsy, {Form} from 'formsy-react';
+import Formsy, {Form} from 'formsy-react-2';
 
 import test from 'tape';
 

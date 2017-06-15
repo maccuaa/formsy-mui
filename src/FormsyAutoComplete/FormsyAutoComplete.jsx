@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import keycode from 'keycode';
-import Formsy from 'formsy-react';
+import Formsy from 'formsy-react-2';
 import AutoComplete from 'material-ui/AutoComplete';
 
 class FormsyAutoComplete extends Formsy.Mixin {

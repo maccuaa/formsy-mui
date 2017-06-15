@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Formsy from 'formsy-react';
+import Formsy from 'formsy-react-2';
 import SelectField from 'material-ui/SelectField';
 
 class FormsySelect extends Formsy.Mixin {

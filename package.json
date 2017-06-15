@@ -61,7 +61,7 @@
     "eslint-plugin-react": "^7.0.1",
     "eslint-plugin-standard": "^3.0.1",
     "faucet": "^0.0.1",
-    "formsy-react": "^0.19.2",
+    "formsy-react-2": "^0.20.0",
     "fs-extra": "^3.0.1",
     "jsdom": "^11.0.0",
     "jsdom-global": "^3.0.2",
@@ -75,7 +75,7 @@
     "tape": "^4.6.3"
   },
   "peerDependencies": {
-    "formsy-react": "file:./../formsy-react/",
+    "formsy-react-2": "^0.20.0 ",
     "material-ui": "^0.18.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0"

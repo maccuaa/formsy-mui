@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Formsy from 'formsy-react';
+import Formsy from 'formsy-react-2';
 import TextField from 'material-ui/TextField';
 import debounce from 'lodash.debounce';
 

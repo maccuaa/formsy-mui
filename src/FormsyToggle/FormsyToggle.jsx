@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Formsy from 'formsy-react';
+import Formsy from 'formsy-react-2';
 import Toggle from 'material-ui/Toggle';
 
 class FormsyToggle extends Formsy.Mixin {
