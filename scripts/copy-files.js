@@ -49,7 +49,7 @@ async function createPackageFile () {
     } = packageData;
 
     const minimalPackage = {
-      name: 'material-ui',
+      name: 'formsy-mui',
       author,
       version,
       description,

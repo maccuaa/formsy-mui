@@ -1,1 +1,1 @@
-export default './FormsyAutoComplete';
+export default from './FormsyAutoComplete';
