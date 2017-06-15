@@ -7,12 +7,12 @@ class FormsyCheckbox extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const {checked, defaultChecked} = props;
-    const value = checked || defaultChecked || false;
+    const {checked, defaultChecked, value} = props;
+    const isChecked = checked || defaultChecked || value || false;
 
     this.state = Object.assign(this.state, {
-      _value: value,
-      _pristineValue: value
+      _value: isChecked,
+      _pristineValue: isChecked
     });
   }
 
@@ -25,6 +25,7 @@ class FormsyCheckbox extends Formsy.Mixin {
     const {
       checked,
       defaultChecked,
+      value,
       ...rest
     } = this.removeFormsyProps(this.props);
 
@@ -43,7 +44,8 @@ class FormsyCheckbox extends Formsy.Mixin {
 FormsyCheckbox.propTypes = {
   checked: PropTypes.bool,
   defaultChecked: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  value: PropTypes.bool
 };
 
 export default FormsyCheckbox;

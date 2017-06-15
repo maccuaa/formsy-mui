@@ -7,12 +7,12 @@ class FormsyToggle extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const {toggled, defaultToggled} = props;
-    const value = toggled || defaultToggled || false;
+    const {toggled, defaultToggled, value} = props;
+    const isToggled = toggled || defaultToggled || value || false;
 
     this.state = Object.assign(this.state, {
-      _value: value,
-      _pristineValue: value
+      _value: isToggled,
+      _pristineValue: isToggled
     });
   }
 
@@ -25,6 +25,7 @@ class FormsyToggle extends Formsy.Mixin {
     const {
       toggled,
       defaultToggled,
+      value,
       ...rest
     } = this.removeFormsyProps(this.props);
 
@@ -43,7 +44,8 @@ class FormsyToggle extends Formsy.Mixin {
 FormsyToggle.propTypes = {
   defaultToggled: PropTypes.bool,
   onChange: PropTypes.func,
-  toggled: PropTypes.bool
+  toggled: PropTypes.bool,
+  value: PropTypes.bool
 };
 
 export default FormsyToggle;
