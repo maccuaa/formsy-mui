@@ -7,8 +7,7 @@ class FormsyRadioGroup extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const {valueSelected, defaultSelected} = this.props;
-    const selected = valueSelected || defaultSelected || '';
+    const selected = 'valueSelected' in props ? props.valueSelected : props.defaultSelected;
 
     this.state = Object.assign(this.state, {
       _value: selected,

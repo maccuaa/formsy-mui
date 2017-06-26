@@ -355,3 +355,63 @@ test('FormsyText updateImmediately shows error after debounce limit', async (ass
 
   assert.end();
 });
+
+test('FormsyText falsey values are correctly set', (assert) => {
+  const zero = 0;
+  const notTrue = false;
+  const nill = null;
+  const notdefined = undefined;
+
+  const wrapper = mountWithContext(
+    <Form>
+      <FormsyText name='zero' value={zero} />
+      <FormsyText name='notTrue' value={notTrue} />
+      <FormsyText name='nill' value={nill} />
+      <FormsyText name='notdefined' value={notdefined} />
+    </Form>
+  );
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formValues = formsyForm.getCurrentValues();
+
+  assert.equals(formValues.zero, zero);
+
+  assert.equals(formValues.notTrue, notTrue);
+
+  assert.equals(formValues.nill, nill);
+
+  assert.equals(formValues.notdefined, notdefined);
+
+  assert.end();
+});
+
+test('FormsyText falsey defaultValues are correctly set', (assert) => {
+  const zero = 0;
+  const notTrue = false;
+  const nill = null;
+  const notdefined = undefined;
+
+  const wrapper = mountWithContext(
+    <Form>
+      <FormsyText name='zero' defaultValue={zero} />
+      <FormsyText name='notTrue' defaultValue={notTrue} />
+      <FormsyText name='nill' defaultValue={nill} />
+      <FormsyText name='notdefined' defaultValue={notdefined} />
+    </Form>
+  );
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formValues = formsyForm.getCurrentValues();
+
+  assert.equals(formValues.zero, zero);
+
+  assert.equals(formValues.notTrue, notTrue);
+
+  assert.equals(formValues.nill, nill);
+
+  assert.equals(formValues.notdefined, notdefined);
+
+  assert.end();
+});

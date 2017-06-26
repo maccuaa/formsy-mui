@@ -7,8 +7,7 @@ class FormsyDate extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const {value, defaultDate} = props;
-    const date = value || defaultDate;
+    const date = 'value' in props ? props.value : props.defaultDate;
 
     this.state = Object.assign(this.state, {
       _value: date,

@@ -116,3 +116,79 @@ test('FormsyRadioGroup onChange prop is called', (assert) => {
 
   assert.end();
 });
+
+test('FormsyRadioGroup falsey valueSelected values are correctly set', (assert) => {
+  const zero = 0;
+  const notTrue = false;
+  const nill = null;
+  const notdefined = undefined;
+
+  const wrapper = mountWithContext(
+    <Form>
+      <FormsyRadioGroup name='zero' valueSelected={zero}>
+        <FormsyRadio value={zero} />
+      </FormsyRadioGroup>
+      <FormsyRadioGroup name='notTrue' valueSelected={notTrue}>
+        <FormsyRadio value={notTrue} />
+      </FormsyRadioGroup>
+      <FormsyRadioGroup name='nill' valueSelected={nill}>
+        <FormsyRadio value={nill} />
+      </FormsyRadioGroup>
+      <FormsyRadioGroup name='notdefined' valueSelected={notdefined}>
+        <FormsyRadio value={notdefined} />
+      </FormsyRadioGroup>
+    </Form>
+  );
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formValues = formsyForm.getCurrentValues();
+
+  assert.equals(formValues.zero, zero);
+
+  assert.equals(formValues.notTrue, notTrue);
+
+  assert.equals(formValues.nill, nill);
+
+  assert.equals(formValues.notdefined, notdefined);
+
+  assert.end();
+});
+
+test('FormsyRadioGroup falsey defaultSelected values are correctly set', (assert) => {
+  const zero = 0;
+  const notTrue = false;
+  const nill = null;
+  const notdefined = undefined;
+
+  const wrapper = mountWithContext(
+    <Form>
+      <FormsyRadioGroup name='zero' defaultSelected={zero}>
+        <FormsyRadio value={zero} />
+      </FormsyRadioGroup>
+      <FormsyRadioGroup name='notTrue' defaultSelected={notTrue}>
+        <FormsyRadio value={notTrue} />
+      </FormsyRadioGroup>
+      <FormsyRadioGroup name='nill' defaultSelected={nill}>
+        <FormsyRadio value={nill} />
+      </FormsyRadioGroup>
+      <FormsyRadioGroup name='notdefined' defaultSelected={notdefined}>
+        <FormsyRadio value={notdefined} />
+      </FormsyRadioGroup>
+    </Form>
+  );
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formValues = formsyForm.getCurrentValues();
+
+  assert.equals(formValues.zero, zero);
+
+  assert.equals(formValues.notTrue, notTrue);
+
+  assert.equals(formValues.nill, nill);
+
+  assert.equals(formValues.notdefined, notdefined);
+
+  assert.end();
+});

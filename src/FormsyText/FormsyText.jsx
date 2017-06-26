@@ -8,7 +8,7 @@ class FormsyText extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const value = props.value || props.defaultValue || '';
+    const value = 'value' in props ? props.value : props.defaultValue;
 
     this.state = Object.assign(this.state, {
       _value: value,

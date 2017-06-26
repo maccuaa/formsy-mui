@@ -7,8 +7,7 @@ class FormsyTime extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const {value, defaultTime} = props;
-    const time = value || defaultTime;
+    const time = 'value' in props ? props.value : props.defaultTime;
 
     this.state = Object.assign(this.state, {
       _value: time,
