@@ -192,3 +192,61 @@ test('FormsyRadioGroup falsey defaultSelected values are correctly set', (assert
 
   assert.end();
 });
+
+test('FormsyRadioGroup updates value as a controlled component', (assert) => {
+  class MyComponent extends React.PureComponent {
+    constructor (props) {
+      super(props);
+      this.state = {
+        value: 'foo'
+      };
+    }
+
+    changeValue () {
+      this.setState({value: 'bar'});
+    }
+
+    render () {
+      return (
+        <Form>
+          <FormsyRadioGroup name='test' valueSelected={this.state.value}>
+            <FormsyRadio value='foo' />
+            <FormsyRadio value='bar' />
+          </FormsyRadioGroup>
+        </Form>
+      );
+    }
+  }
+
+  const wrapper = mountWithContext(<MyComponent />);
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const myComponent = wrapper.find(MyComponent).node;
+
+  const formsyRadioGroup = wrapper.find(FormsyRadioGroup).node;
+
+  const fooInput = wrapper.find({value: 'foo'});
+
+  const barInput = wrapper.find({value: 'bar'});
+
+  assert.equals(formsyForm.getCurrentValues().test, 'foo');
+
+  assert.false(barInput.node.checked);
+
+  assert.true(fooInput.node.checked);
+
+  assert.equals(formsyRadioGroup.getValue(), 'foo');
+
+  myComponent.changeValue();
+
+  assert.equals(formsyForm.getCurrentValues().test, 'bar');
+
+  assert.true(barInput.node.checked);
+
+  assert.false(fooInput.node.checked);
+
+  assert.equals(formsyRadioGroup.getValue(), 'bar');
+
+  assert.end();
+});
