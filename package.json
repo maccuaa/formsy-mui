@@ -5,10 +5,10 @@
   "main": "./src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/st-andrew/formsy-mui.git"
+    "url": "https://github.com/maccuaa/formsy-mui.git"
   },
   "bugs": {
-    "url": "https://github.com/st-andrew/formsy-mui/issues"
+    "url": "https://github.com/maccuaa/formsy-mui/issues"
   },
   "author": "Andrew MacCuaig <andrewmaccuaig@gmail.com>",
   "license": "MIT",
