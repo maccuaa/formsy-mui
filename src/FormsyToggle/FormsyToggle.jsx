@@ -16,6 +16,13 @@ class FormsyToggle extends Formsy.Mixin {
     });
   }
 
+  componentWillReceiveProps (nextProps) {
+    super.componentWillReceiveProps(nextProps);
+    if (this.props.toggled !== nextProps.toggled) {
+      this.setValue(nextProps.toggled);
+    }
+  }
+
   handleToggle (event, value) {
     this.setValue(value);
     if (this.props.onChange) this.props.onChange(event, value);

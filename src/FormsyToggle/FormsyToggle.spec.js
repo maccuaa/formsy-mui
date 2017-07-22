@@ -125,3 +125,52 @@ test('FormsyToggle onChange prop is called', (assert) => {
 
   assert.end();
 });
+
+test('FormsyToggle updates value as a controlled component', (assert) => {
+  class MyComponent extends React.PureComponent {
+    constructor (props) {
+      super(props);
+      this.state = {
+        value: true
+      };
+    }
+
+    changeValue () {
+      this.setState({value: false});
+    }
+
+    render () {
+      return (
+        <Form>
+          <FormsyToggle name='test' toggled={this.state.value} />
+        </Form>
+      );
+    }
+  }
+
+  const wrapper = mountWithContext(<MyComponent />);
+
+  const myComponent = wrapper.find(MyComponent).node;
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formsyToggle = wrapper.find(FormsyToggle).node;
+
+  const input = wrapper.find('input');
+
+  assert.true(formsyToggle.getValue());
+
+  assert.true(formsyForm.getCurrentValues().test);
+
+  assert.true(input.node.checked);
+
+  myComponent.changeValue();
+
+  assert.false(formsyToggle.getValue());
+
+  assert.false(formsyForm.getCurrentValues().test);
+
+  assert.false(input.node.checked);
+
+  assert.end();
+});

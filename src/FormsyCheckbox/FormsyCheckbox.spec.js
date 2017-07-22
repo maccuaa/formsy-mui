@@ -93,7 +93,7 @@ test('FormsyCheckbox resetValue sets value back to original value', (assert) => 
 
   const input = wrapper.find('input');
 
-  assert.equals(input.node.checked, false);
+  assert.false(input.node.checked);
 
   input.node.checked = true;
 
@@ -122,6 +122,55 @@ test('FormsyCheckbox onChange prop is called', (assert) => {
   wrapper.find('input').simulate('change');
 
   assert.true(onChangeSpy.calledOnce);
+
+  assert.end();
+});
+
+test('FormsyCheckbox updates value as a controlled component', (assert) => {
+  class MyComponent extends React.PureComponent {
+    constructor (props) {
+      super(props);
+      this.state = {
+        value: true
+      };
+    }
+
+    changeValue () {
+      this.setState({value: false});
+    }
+
+    render () {
+      return (
+        <Form>
+          <FormsyCheckbox name='test' checked={this.state.value} />
+        </Form>
+      );
+    }
+  }
+
+  const wrapper = mountWithContext(<MyComponent />);
+
+  const myComponent = wrapper.find(MyComponent).node;
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formsyCheckbox = wrapper.find(FormsyCheckbox).node;
+
+  const input = wrapper.find('input');
+
+  assert.true(formsyCheckbox.getValue());
+
+  assert.true(formsyForm.getCurrentValues().test);
+
+  assert.true(input.node.checked);
+
+  myComponent.changeValue();
+
+  assert.false(formsyCheckbox.getValue());
+
+  assert.false(formsyForm.getCurrentValues().test);
+
+  assert.false(input.node.checked);
 
   assert.end();
 });

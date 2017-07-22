@@ -146,7 +146,7 @@ test('FormsySelect disabled prop propagetes to Material UI AutoComplete', (asser
 test('FormsySelect allows overriding Formsy Form disabled prop', (assert) => {
   const wrapper = mountWithContext(
     <Form disabled>
-      <FormsySelect name='test'disabled={false} />
+      <FormsySelect name='test' disabled={false} />
     </Form>
   );
 
@@ -208,4 +208,50 @@ test('FormsySelect requiredError message is displayed', (assert) => {
   assert.equals(textField.state.errorText, 'foo');
 
   assert.end();
+});
+
+test('FormsySelect updates value as a controlled component', (assert) => {
+  class MyComponent extends React.PureComponent {
+    constructor (props) {
+      super(props);
+      this.state = {
+        value: 'foo'
+      };
+    }
+
+    changeValue () {
+      this.setState({value: 'bar'});
+    }
+
+    render () {
+      return (
+        <Form>
+          <FormsySelect name='test' value={this.state.value}>
+            <MenuItem value='foo' />
+            <MenuItem value='bar' />
+          </FormsySelect>
+        </Form>
+      );
+    }
+  }
+
+  const wrapper = mountWithContext(<MyComponent />);
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formsySelect = wrapper.find(FormsySelect).node;
+
+  const myComponent = wrapper.find(MyComponent).node;
+
+  assert.equals(formsyForm.getCurrentValues().test, 'foo');
+
+  assert.equals(formsySelect.getValue(), 'foo');
+
+  myComponent.changeValue();
+
+  assert.equals(formsyForm.getCurrentValues().test, 'bar');
+
+  assert.equals(formsySelect.getValue(), 'bar');
+
+  assert.end();  
 });

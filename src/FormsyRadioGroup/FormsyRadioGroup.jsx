@@ -15,6 +15,13 @@ class FormsyRadioGroup extends Formsy.Mixin {
     });
   }
 
+  componentWillReceiveProps (nextProps) {
+    super.componentWillReceiveProps(nextProps);
+    if (this.props.valueSelected !== nextProps.valueSelected) {
+      this.setValue(nextProps.valueSelected);
+    }
+  }
+
   handleChange (event, value) {
     this.setValue(value);
     if (this.props.onChange) this.props.onChange(event, value);

@@ -47,10 +47,10 @@ test('FormsyRadioGroup sends value to Formsy Form', (assert) => {
 
   const input = wrapper.find('input').node;
 
-    // Make sure the Formsy Form component has the right value
+  // Make sure the Formsy Form component has the right value
   assert.equals(formsyForm.getCurrentValues().test, expected);
 
-    // Make sure the DOM has the right value
+  // Make sure the DOM has the right value
   assert.true(input.checked);
 
   assert.end();
@@ -226,6 +226,8 @@ test('FormsyRadioGroup updates value as a controlled component', (assert) => {
 
   const formsyRadioGroup = wrapper.find(FormsyRadioGroup).node;
 
+  const radioButtonGroup = wrapper.find(RadioButtonGroup).node;
+
   const fooInput = wrapper.find({value: 'foo'});
 
   const barInput = wrapper.find({value: 'bar'});
@@ -238,6 +240,8 @@ test('FormsyRadioGroup updates value as a controlled component', (assert) => {
 
   assert.equals(formsyRadioGroup.getValue(), 'foo');
 
+  assert.equals(radioButtonGroup.getSelectedValue(), 'foo');
+
   myComponent.changeValue();
 
   assert.equals(formsyForm.getCurrentValues().test, 'bar');
@@ -247,6 +251,8 @@ test('FormsyRadioGroup updates value as a controlled component', (assert) => {
   assert.false(fooInput.node.checked);
 
   assert.equals(formsyRadioGroup.getValue(), 'bar');
+
+  assert.equals(radioButtonGroup.getSelectedValue(), 'bar');
 
   assert.end();
 });

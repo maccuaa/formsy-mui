@@ -16,6 +16,13 @@ class FormsyCheckbox extends Formsy.Mixin {
     });
   }
 
+  componentWillReceiveProps (nextProps) {
+    super.componentWillReceiveProps(nextProps);
+    if (this.props.checked !== nextProps.checked) {
+      this.setValue(nextProps.checked);
+    }
+  }
+
   handleCheck (event, value) {
     this.setValue(value);
     if (this.props.onChange) this.props.onChange(event, value);
