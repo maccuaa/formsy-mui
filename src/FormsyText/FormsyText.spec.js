@@ -85,13 +85,21 @@ test('FormsyText value prop sends value to Formsy Form', (assert) => {
 
   const myComponent = wrapper.find(MyComponent).node;
 
+  const textField = wrapper.find(TextField).node;
+
   assert.equals(formsyForm.getCurrentValues().test, 'foo');
 
   assert.equals(wrapper.find('input').node.value, 'foo');
 
+  assert.equals(textField.getValue(), 'foo');
+
   myComponent.changeValue();
 
   assert.equals(formsyForm.getCurrentValues().test, 'bar');
+
+  assert.equals(textField.getValue(), 'bar');
+
+  assert.equals(wrapper.find('input').node.value, 'bar');
 
   assert.end();
 });
