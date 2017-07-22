@@ -1,6 +1,6 @@
 {
   "name": "formsy-mui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Formsy wrapper for Material-UI components",
   "main": "./src/index.js",
   "repository": {
