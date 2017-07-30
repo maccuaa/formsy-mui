@@ -1,0 +1,3 @@
+```
+  <FormsyAutoComplete name='test' dataSource={[]} />
+```

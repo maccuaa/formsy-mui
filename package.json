@@ -30,7 +30,9 @@
     "clean": "rimraf build",
     "lint": "eslint src --quiet && echo eslint: no lint errors",
     "prebuild": "npm run clean",
-    "test": "cross-env NODE_ENV=test babel-tape-runner src/**/*.spec.js | faucet"
+    "test": "cross-env NODE_ENV=test babel-tape-runner src/**/*.spec.js | faucet",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
@@ -39,6 +41,9 @@
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
+    "@webpack-blocks/babel6": "^0.4.1",
+    "@webpack-blocks/postcss": "^0.4.3",
+    "@webpack-blocks/webpack2": "^0.4.0",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-plugin-transform-export-extensions": "^6.22.0",
@@ -68,6 +73,7 @@
     "material-ui": "^0.18.5",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-styleguidist": "^5.5.9",
     "react-tap-event-plugin": "^2.0.1",
     "react-test-renderer": "^15.6.1",
     "rimraf": "^2.6.1",

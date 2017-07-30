@@ -4,6 +4,11 @@ import keycode from 'keycode';
 import Formsy from 'formsy-react-2';
 import AutoComplete from 'material-ui/AutoComplete';
 
+/**
+ * FormsyAutoComplete is a wrapper around Material UI's [AutoComplete](http://www.material-ui.com/#/components/auto-complete) component.
+ * @deprecated The AutoComplete component is [not](https://github.com/callemall/material-ui/pull/7477) being ported to Material UI v1.
+ * As such this component is now being deprecated and will be completely removed when Material UI v1 is released.
+ */
 class FormsyAutoComplete extends Formsy.Mixin {
   constructor (props) {
     super(props);
@@ -15,26 +20,26 @@ class FormsyAutoComplete extends Formsy.Mixin {
 
   handleBlur (event) {
     this.setValue(event.target.value);
-    if (this.props.onBlur) this.props.onBlur(event);
   }
 
   handleUpdateInput (value, dataSource, params) {
     this.setValue(value);
-    if (this.props.onChange) this.props.onChange(value, dataSource, params);
+    if (this.props.onUpdateInput) this.props.onUpdateInput(value, dataSource, params);
+    if (this.props.onChange) this.props.onChange(value, -1);
   }
 
   handleKeyDown (event) {
     if (keycode(event) === 'enter') this.setValue(event.target.value);
-    if (this.props.onKeyDown) this.props.onKeyDown(event, event.target.value);
+    if (this.props.onKeyDown) this.props.onKeyDown(event);
+  }
+
+  handleNewRequest (value, index) {
+    this.setValue(value);
+    if (this.props.onNewRequest) this.props.onNewRequest(value, index);
+    if (this.props.onChange) this.props.onChange(value, index);
   }
 
   render () {
-    /*
-      AutoComplete Props that are ignored and not passed to Material UI:
-      - onUpdateInput
-      They are replaced with:
-      - onChange
-    */
     const {
       onUpdateInput,
       searchText,
@@ -50,6 +55,7 @@ class FormsyAutoComplete extends Formsy.Mixin {
         onBlur={(e) => { this.handleBlur(e); }}
         onUpdateInput={(v, d, p) => { this.handleUpdateInput(v, d, p); }}
         onKeyDown={(e) => { this.handleKeyDown(e); }}
+        onNewRequest={(v, i) => { this.handleNewRequest(v, i); }}
         searchText={this.getValue()}
       />
     );
@@ -57,9 +63,13 @@ class FormsyAutoComplete extends Formsy.Mixin {
 }
 
 FormsyAutoComplete.propTypes = {
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func
+  /**
+   * Call back function that is fired when the value AutoComplete component changes.
+   * @type {[type]}
+   * @param {String} value The AutoComplete `searchText` value.
+   * @param {Number} index The index in `dataSource` of the list item selected, or -1 otherwise.
+   */
+  onChange: PropTypes.func
 };
 
 export default FormsyAutoComplete;

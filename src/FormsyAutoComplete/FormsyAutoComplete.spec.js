@@ -152,22 +152,6 @@ test('FormsyAutoComplete Blur event updates the value', (assert) => {
   assert.end();
 });
 
-test('FormsyAutoComplete onBlur prop is called', (assert) => {
-  const onBlurSpy = Sinon.spy();
-
-  const wrapper = mountWithContext(
-    <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} onBlur={onBlurSpy} />
-    </Form>
-  );
-
-  wrapper.find('input').simulate('blur');
-
-  assert.true(onBlurSpy.calledOnce);
-
-  assert.end();
-});
-
 test('FormsyAutoComplete onChange prop is called', (assert) => {
   const onChangeSpy = Sinon.spy();
 
@@ -184,12 +168,10 @@ test('FormsyAutoComplete onChange prop is called', (assert) => {
   assert.end();
 });
 
-test('FormsyAutoComplete onKeyDown prop is called', (assert) => {
-  const onKeyDownSpy = Sinon.spy();
-
+test('FormsyAutoComplete onKeyDown updates value', (assert) => {
   const wrapper = mountWithContext(
     <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} onKeyDown={onKeyDownSpy} searchText='foo' />
+      <FormsyAutoComplete name='test' dataSource={[]} searchText='foo' />
     </Form>
   );
 
@@ -199,7 +181,7 @@ test('FormsyAutoComplete onKeyDown prop is called', (assert) => {
 
   assert.equals(wrapper.find('input').node.value, 'bar');
 
-  assert.true(onKeyDownSpy.calledOnce);
+  assert.equals(wrapper.find('Form').node.getCurrentValues().test, 'bar');
 
   assert.end();
 });
