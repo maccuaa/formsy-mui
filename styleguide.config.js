@@ -28,6 +28,9 @@ module.exports = {
   styleguideComponents: {
     Wrapper: path.join(__dirname, 'docs/components/Wrapper')
   },
+  contextDependencies: [
+    path.resolve(__dirname, 'src/**/[A-Z]*.jsx')
+  ],
   webpackConfig: createConfig([
     babel(),
     postcss()

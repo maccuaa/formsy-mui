@@ -3,7 +3,6 @@ import 'jsdom-global/register';
 import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import injectTapEvent from '../../test/injectTouchTap';
 
 import {mount} from 'enzyme';
 import Formsy, {Form} from 'formsy-react-2';
@@ -13,9 +12,6 @@ import Sinon from 'sinon';
 
 import TimePicker from 'material-ui/TimePicker';
 import FormsyTime from './FormsyTime';
-
-// TODO - Remove when MUI doesn't depend on this anymore
-injectTapEvent();
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {

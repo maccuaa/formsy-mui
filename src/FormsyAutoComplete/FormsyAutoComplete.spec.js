@@ -168,24 +168,6 @@ test('FormsyAutoComplete onChange prop is called', (assert) => {
   assert.end();
 });
 
-test('FormsyAutoComplete onKeyDown updates value', (assert) => {
-  const wrapper = mountWithContext(
-    <Form>
-      <FormsyAutoComplete name='test' dataSource={[]} searchText='foo' />
-    </Form>
-  );
-
-  assert.equals(wrapper.find('input').node.value, 'foo');
-
-  wrapper.find('input').simulate('keydown', {keyCode: 13, target: {value: 'bar'}});
-
-  assert.equals(wrapper.find('input').node.value, 'bar');
-
-  assert.equals(wrapper.find('Form').node.getCurrentValues().test, 'bar');
-
-  assert.end();
-});
-
 test('FormsyAutoComplete respects disabled prop of Formsy Form', (assert) => {
   const wrapper = mountWithContext(
     <Form disabled>

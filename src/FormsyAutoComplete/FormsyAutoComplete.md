@@ -1,3 +1,3 @@
-```
-  <FormsyAutoComplete name='test' dataSource={[]} />
+```jsx
+  <FormsyAutoComplete name='foo' dataSource={[]} />
 ```

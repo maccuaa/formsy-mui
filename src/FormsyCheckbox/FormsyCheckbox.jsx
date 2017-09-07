@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react-2';
 import Checkbox from 'material-ui/Checkbox';
 
+/**
+ * FormsyCheckbox is a wrapper around Material UI's [Checkbox](http://www.material-ui.com/#/components/checkbox) component.
+ */
 class FormsyCheckbox extends Formsy.Mixin {
   constructor (props) {
     super(props);
 
-    const {checked, defaultChecked, value} = props;
-    const isChecked = checked || defaultChecked || value || false;
+    const { checked, defaultChecked } = props;
+    const isChecked = checked || defaultChecked || false;
 
     this.state = Object.assign(this.state, {
       _value: isChecked,
@@ -32,16 +35,19 @@ class FormsyCheckbox extends Formsy.Mixin {
     const {
       checked,
       defaultChecked,
-      value,
+      onCheck,
+      onChange,
       ...rest
     } = this.removeFormsyProps(this.props);
 
-    const props = Object.assign({disabled: this.isFormDisabled()}, rest);
+    const props = Object.assign({ disabled: this.isFormDisabled() }, rest);
+
+    const value = this.getValue();
 
     return (
       <Checkbox
         {...props}
-        checked={this.getValue()}
+        checked={value}
         onCheck={(e, v) => { this.handleCheck(e, v); }}
       />
     );
@@ -49,10 +55,28 @@ class FormsyCheckbox extends Formsy.Mixin {
 }
 
 FormsyCheckbox.propTypes = {
+  /**
+   * Checkbox is checked if true.
+   * @type {bool}
+   */
   checked: PropTypes.bool,
+
+  /**
+   * The default state of our checkbox component.
+   * **Warning:** This cannot be used in conjunction with `checked`.
+   * Decide between using a controlled or uncontrolled input element and remove one of these props.
+   * More info: https://fb.me/react-controlled-components
+   * @type {bool}
+   */
   defaultChecked: PropTypes.bool,
-  onChange: PropTypes.func,
-  value: PropTypes.bool
+
+  /**
+   * Callback function that is fired when the checkbox is checked.
+   * @type {[type]}
+   * @param {Object} event `change` event targeting the underlying checkbox `input`.
+   * @param {Boolean} value The `checked` value of the underlying checkbox `input`.
+   */
+  onChange: PropTypes.func
 };
 
 export default FormsyCheckbox;
