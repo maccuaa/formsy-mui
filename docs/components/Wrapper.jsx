@@ -8,10 +8,13 @@ class Wrapper extends React.Component {
     super(props);
 
     this.state = {
+      formIsValid: false,
       model: {}
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onFormIsValid = this.onFormIsValid.bind(this);
+    this.onFormIsInvalid = this.onFormIsInvalid.bind(this);
   }
 
   componentDidMount () {
@@ -22,16 +25,31 @@ class Wrapper extends React.Component {
     this.setState({ model });
   }
 
+  onFormIsValid () {
+    this.setState({ formIsValid: true });
+  }
+
+  onFormIsInvalid () {
+    this.setState({ formIsValid: false });
+  }
+
   render () {
-    const { model } = this.state;
+    const { formIsValid, model } = this.state;
 
     return (
       <MuiThemeProvider>
-        <Form onChange={this.onChange} ref={(e) => { this.form = e; }}>
+        <Form
+          onChange={this.onChange}
+          onValid={this.onFormIsValid}
+          onInvalid={this.onFormIsInvalid}
+          ref={(e) => { this.form = e; }}>
           {this.props.children}
           <br />
           <div>
             {JSON.stringify(model)}
+          </div>
+          <div>
+            Form is {formIsValid ? 'valid' : 'invalid'}
           </div>
         </Form>
       </MuiThemeProvider>
