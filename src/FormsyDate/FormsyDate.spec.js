@@ -129,3 +129,49 @@ test('FormsyDate resetValue sets value back to original value', (assert) => {
 
   assert.end();
 });
+
+test('FormsyDate updates value as a controlled component', (assert) => {
+  const d1 = new Date(2017, 1, 1);
+  const d2 = new Date(2018, 1, 1);
+
+  class MyComponent extends React.PureComponent {
+    constructor (props) {
+      super(props);
+      this.state = {
+        value: d1
+      };
+    }
+
+    changeValue () {
+      this.setState({value: d2});
+    }
+
+    render () {
+      return (
+        <Form>
+          <FormsyDate name='test' value={this.state.value} />
+        </Form>
+      );
+    }
+  }
+
+  const wrapper = mountWithContext(<MyComponent />);
+
+  const myComponent = wrapper.find(MyComponent).node;
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formsyDate = wrapper.find(FormsyDate).node;
+
+  assert.equals(formsyDate.getValue(), d1);
+
+  assert.equals(formsyForm.getCurrentValues().test, d1);
+
+  myComponent.changeValue();
+
+  assert.equals(formsyDate.getValue(), d2);
+
+  assert.equals(formsyForm.getCurrentValues().test, d2);
+
+  assert.end();
+});

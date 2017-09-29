@@ -16,6 +16,9 @@ class FormsyAutoComplete extends Formsy.Mixin {
       _value: props.searchText,
       _pristineValue: props.searchText
     });
+
+    // eslint-disable-next-line no-console
+    console.warn('FormsyAutoComplete is deprecated and will be compeletely removed in a future release.  Consider switching to a different component.');
   }
 
   handleBlur (event) {

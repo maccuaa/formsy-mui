@@ -1,4 +1,4 @@
-An uncontrolled Checkbox example
+A simple Checkbox example
 ```jsx
 <FormsyCheckbox
   name='foo'
@@ -19,7 +19,7 @@ initialState = { value: false };
 </div>
 ```
 
-A defaultChecked Checkbox example
+An uncontrolled Checkbox example
 ```jsx
 <FormsyCheckbox
   name='foo'
@@ -30,15 +30,11 @@ A defaultChecked Checkbox example
 
 A required Checkbox example
 ```jsx
-<div>
-  <FormsyCheckbox
-    name='foo'
-    label='foo *'
-    required='isFalse'
-  />
-  <br />
-  <div>* Required field</div>
-</div>
+<FormsyCheckbox
+  name='foo'
+  label='foo'
+  required='isFalse'
+/>
 ```
 
 Checkbox onChange example
@@ -54,4 +50,21 @@ initialState = { value: false };
   <br />
   <button disabled={!state.value}>Hello</button>
 </div>
+```
+
+Disabled Checkbox example
+```jsx
+<span>
+  <FormsyCheckbox
+    name='foo'
+    label='foo'
+    disabled
+  />
+  <FormsyCheckbox
+    name='bar'
+    label='bar'
+    defaultChecked
+    disabled
+  />
+</span>
 ```

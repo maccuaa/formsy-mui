@@ -57,16 +57,16 @@ class FormsyCheckbox extends Formsy.Mixin {
 FormsyCheckbox.propTypes = {
   /**
    * Checkbox is checked if true.
-   * @type {bool}
+   * @type {[type]}
    */
   checked: PropTypes.bool,
 
   /**
-   * The default state of our checkbox component.
+   * The default state of the checkbox component.
    * **Warning:** This cannot be used in conjunction with `checked`.
    * Decide between using a controlled or uncontrolled input element and remove one of these props.
    * More info: https://fb.me/react-controlled-components
-   * @type {bool}
+   * @type {[type]}
    */
   defaultChecked: PropTypes.bool,
 
