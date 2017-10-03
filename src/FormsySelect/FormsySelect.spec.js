@@ -123,7 +123,7 @@ test('FormsySelect respects disabled prop of Formsy Form', (assert) => {
   assert.end();
 });
 
-test('FormsySelect disabled prop propagetes to Material UI AutoComplete', (assert) => {
+test('FormsySelect disabled prop propagetes to Material UI Select Field', (assert) => {
   const wrapper = mountWithContext(
     <Form>
       <FormsySelect name='test' disabled />

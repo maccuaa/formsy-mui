@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react-2';
 import RadioButtonGroup from 'material-ui/RadioButton/RadioButtonGroup';
 
+/**
+ * FormsyDate is a wrapper around Material UI's [Radio Button Group](http://www.material-ui.com/#/components/radio-button) component.
+ */
 class FormsyRadioGroup extends Formsy.Mixin {
   constructor (props) {
     super(props);
@@ -47,8 +50,25 @@ class FormsyRadioGroup extends Formsy.Mixin {
 }
 
 FormsyRadioGroup.propTypes = {
+  /**
+   * The value property of the radio button that will be selected by default.
+   * This takes precedence over the checked property of the RadioButton elements.
+   * @type {[type]}
+   */
   defaultSelected: PropTypes.any,
+
+  /**
+   * Callback function that is fired when a radio button has been checked.
+   * @type {[type]}
+   * @param {Object} event `change` event targeting the selected radio button.
+   * @param {Boolean} value The `value` of the selected radio button.
+   */
   onChange: PropTypes.func,
+
+  /**
+   * The value of the currently selected radio button.
+   * @type {[type]}
+   */
   valueSelected: PropTypes.any
 };
 

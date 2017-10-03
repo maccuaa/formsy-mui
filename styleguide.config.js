@@ -31,6 +31,9 @@ module.exports = {
   contextDependencies: [
     path.resolve(__dirname, 'src/**/[A-Z]*.jsx')
   ],
+  require: [
+    path.resolve(__dirname, 'docs/setup.js')
+  ],
   webpackConfig: createConfig([
     babel(),
     postcss()

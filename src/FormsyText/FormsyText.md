@@ -1,20 +1,19 @@
-A simple Date example
+A simple TextField example
 ```jsx
-<FormsyDate
+<FormsyText
   name='foo'
-  floatingLabelText='foo'
 />
 ```
 
-A controlled Date example
+A controlled TextField example
 ```jsx
-initialState = { value: new Date(2017, 1, 1) };
+initialState = { value: 'foo' };
 <div>
-  <FormsyDate
+  <FormsyText
     name='foo'
     value={state.value} />
   <br />
-  <button onClick={() => setState({value: new Date()})}>Today</button>
+  <RaisedButton label='bar' onClick={() => setState({value: 'bar'})} />
 </div>
 ```
 

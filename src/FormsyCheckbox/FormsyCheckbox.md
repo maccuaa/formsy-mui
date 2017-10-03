@@ -19,7 +19,7 @@ initialState = { value: false };
 </div>
 ```
 
-An uncontrolled Checkbox example
+An uncontrolled Checkbox with a default value
 ```jsx
 <FormsyCheckbox
   name='foo'
@@ -48,7 +48,7 @@ initialState = { value: false };
     onChange={(event, value) => setState({value})}
   />
   <br />
-  <button disabled={!state.value}>Hello</button>
+  <div>Checkbox is {state.value ? 'checked! :)' : 'not checked :('}</div>
 </div>
 ```
 

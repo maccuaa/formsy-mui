@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Formsy from 'formsy-react-2';
 import DatePicker from 'material-ui/DatePicker';
 
+/**
+ * FormsyDate is a wrapper around Material UI's [Date Picker](http://www.material-ui.com/#/components/date-picker) component.
+ */
 class FormsyDate extends Formsy.Mixin {
   constructor (props) {
     super(props);
