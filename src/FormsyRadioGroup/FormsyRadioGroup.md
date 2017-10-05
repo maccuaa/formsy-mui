@@ -15,7 +15,7 @@ initialState = { value: 'bar' };
     <FormsyRadio value='bar' label='bar' />
   </FormsyRadioGroup>
   <br />
-  <button onClick={() => setState({value: state.value === 'foo' ? 'bar' : 'foo'})}>Toggle Radio Button</button>
+  <RaisedButton label='Toggle Radio Button' onClick={() => setState({value: state.value === 'foo' ? 'bar' : 'foo'})} />
 </div>
 ```
 

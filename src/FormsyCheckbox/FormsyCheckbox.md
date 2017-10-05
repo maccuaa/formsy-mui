@@ -15,7 +15,7 @@ initialState = { value: false };
     label='foo'
     checked={state.value} />
   <br />
-  <button onClick={() => setState({value: !state.value})}>Toggle Checkbox</button>
+  <RaisedButton label='Toggle Checkbox' onClick={() => setState({value: !state.value})} />
 </div>
 ```
 

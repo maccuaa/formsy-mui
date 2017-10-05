@@ -11,40 +11,40 @@ initialState = { value: 'foo' };
 <div>
   <FormsyText
     name='foo'
+    onChange={(event, value) => { setState({ value })}}
     value={state.value} />
   <br />
   <RaisedButton label='bar' onClick={() => setState({value: 'bar'})} />
 </div>
 ```
 
-An uncontrolled Date with a default value
+An uncontrolled TextField with a default value
 ```jsx
-<FormsyDate
+<FormsyText
   name='foo'
-  defaultDate={new Date(2017, 1, 1)}
+  defaultValue={'foo'}
 />  
 ```
 
-A required Date example
+A required TextField example
 ```jsx
-<FormsyDate
+<FormsyText
   name='foo'
-  floatingLabelText='Foo'
   required
   requiredError='Field is required.'
 />
 ```
 
-Date onChange example
+TextField onChange example
 ```jsx
-initialState = { value: new Date(2017, 1, 1) };
+initialState = { value: 'foo' };
 <div>
-  <FormsyDate
+  <FormsyText
     name='foo'
     value={state.value}
     onChange={(event, value) => { setState({value}) }}
   />
   <br />
-  <div>Foo is <strong>{state.value.toDateString()}</strong></div>
+  <div>Hello <strong>{state.value}!</strong></div>
 </div>
 ```

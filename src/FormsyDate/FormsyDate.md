@@ -14,7 +14,7 @@ initialState = { value: new Date(2017, 1, 1) };
     name='foo'
     value={state.value} />
   <br />
-  <button onClick={() => setState({value: new Date()})}>Today</button>
+  <RaisedButton label='Today' onClick={() => setState({value: new Date()})} />
 </div>
 ```
 
