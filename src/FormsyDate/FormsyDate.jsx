@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Formsy from 'formsy-react-2';
 import DatePicker from 'material-ui/DatePicker';
+import { datesEq } from '../utils';
 
 /**
  * FormsyDate is a wrapper around Material UI's [Date Picker](http://www.material-ui.com/#/components/date-picker) component.
@@ -27,15 +28,6 @@ class FormsyDate extends Formsy.Mixin {
       if (!datesEq(this.props.defaultDate, nextProps.defaultDate)) {
         this.setValue(nextProps.defaultDate);
       }
-    }
-
-    function datesEq (date1, date2) {
-      return date1.getFullYear() === date2.getFullYear() &&
-        date1.getDate() === date2.getDate() &&
-        date1.getDay() === date2.getDay() &&
-        date1.getHours() === date2.getHours() &&
-        date1.getMinutes() === date2.getMinutes() &&
-        date1.getSeconds() === date2.getSeconds();
     }
   }
 
@@ -78,7 +70,7 @@ FormsyDate.propTypes = {
   /**
    * Callback function that is fired when the date value changes.
    * @type {[type]}
-   * @param {?null} null Since there is no particular event associated with the change, the first argument will always be null.
+   * @param {Null} null Since there is no particular event associated with the change, the first argument will always be null.
    * @param {Date} value  The new date value.
    */
   onChange: PropTypes.func,
