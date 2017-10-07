@@ -12,10 +12,6 @@ module.exports = {
         {
           name: 'Installation',
           content: 'docs/installation.md'
-        },
-        {
-          name: 'Configuration',
-          content: 'docs/configuration.md'
         }
       ]
     },
@@ -23,6 +19,10 @@ module.exports = {
       name: 'UI Components',
       content: 'docs/ui.md',
       components: './src/**/[A-Z]*.jsx'
+    },
+    {
+      name: 'Validations',
+      content: 'docs/validations.md'
     }
   ],
   styleguideComponents: {
@@ -32,8 +32,17 @@ module.exports = {
     path.resolve(__dirname, 'src/**/[A-Z]*.jsx')
   ],
   require: [
-    path.resolve(__dirname, 'docs/setup.js')
+    path.resolve(__dirname, 'docs/components/setup.js')
   ],
+  theme: {
+    // '@font-face': {
+    //   fontFamily: 'Roboto',
+    //   src: 'url("https://fonts.googleapis.com/css?family=Roboto:300,400,500")'
+    // },
+    fontFamily: {
+      base: '"Roboto", "sans-serif"'
+    }
+  },
   webpackConfig: createConfig([
     babel(),
     postcss()

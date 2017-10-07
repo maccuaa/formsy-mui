@@ -6,6 +6,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 
 /**
  * FormsyAutoComplete is a wrapper around Material UI's [AutoComplete](http://www.material-ui.com/#/components/auto-complete) component.
+ * 
  * @deprecated The AutoComplete component is [not](https://github.com/callemall/material-ui/pull/7477) being ported to Material UI v1.
  * As such this component is now being deprecated and will be completely removed when Material UI v1 is released.
  */

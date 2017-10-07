@@ -23,7 +23,7 @@ An uncontrolled TextField with a default value
 <FormsyText
   name='foo'
   defaultValue={'foo'}
-/>  
+/>
 ```
 
 A required TextField example
@@ -46,5 +46,32 @@ initialState = { value: 'foo' };
   />
   <br />
   <div>Hello <strong>{state.value}!</strong></div>
+</div>
+```
+
+**updateImmediately**
+
+By default, if the TextField has validations the value of the TextField will only be updated once the user has left the input.  You can use the updateImmediately prop to update the value of the TextField as the user is typing.  For more information see the documentation of the updateImmediately prop.
+```jsx
+<div>
+  <p>Each input has the <strong>isInt</strong> validation.</p>
+  <FormsyText
+    name='foo'
+    hintText='Without updateImmediately'
+    floatingLabelText='foo'
+    floatingLabelFixed
+    validations='isInt'
+    validationError='Input is not a number'
+  />
+  <br />
+  <FormsyText
+    name='bar'
+    hintText='With updateImmediately'
+    floatingLabelText='bar'
+    floatingLabelFixed
+    validations='isInt'
+    validationError='Input is not a number'
+    updateImmediately
+  />
 </div>
 ```
