@@ -52,7 +52,8 @@ class Wrapper extends React.Component {
     const styles = {
       container: {
         display: 'flex',
-        flex: '1 1 auto'
+        flex: '1 1 auto',
+        fontFamily: '"Roboto", "sans-serif"'
       },
       item: {
         width: '50%',
@@ -84,6 +85,7 @@ class Wrapper extends React.Component {
         <div style={styles.container}>
           <div style={styles.item}>
             <Form
+              autocomplete='off'
               onChange={this.onChange}
               onValid={this.onFormIsValid}
               onInvalid={this.onFormIsInvalid}

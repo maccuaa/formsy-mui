@@ -51,7 +51,7 @@ initialState = { value: 'foo' };
 
 **updateImmediately**
 
-By default, if the TextField has validations the value of the TextField will only be updated once the user has left the input.  You can use the updateImmediately prop to update the value of the TextField as the user is typing.  For more information see the documentation of the updateImmediately prop.
+By default, if the TextField has validations the value of the TextField will only be updated once the user has left the input or the user has entered a valid value.  You can use the updateImmediately prop to update the value of the TextField as the user is typing.  For more information see the documentation of the updateImmediately prop.
 ```jsx
 <div>
   <p>Each input has the <strong>isInt</strong> validation.</p>

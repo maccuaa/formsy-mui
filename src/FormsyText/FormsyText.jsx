@@ -50,13 +50,15 @@ class FormsyText extends Formsy.Mixin {
 
     const props = Object.assign({disabled: this.isFormDisabled()}, rest);
 
+    const formValue = this.getValue() || '';
+
     return (
       <TextField
         {...props}
         errorText={this.getErrorMessage()}
         onBlur={(e) => { this.handleBlur(e); }}
         onChange={(e, v) => { this.handleChange(e, v); }}
-        value={this.getValue()}
+        value={formValue}
       />
     );
   }
