@@ -41,7 +41,7 @@ test('FormsyRadio change event propogates value to Formsy Form', (assert) => {
         <FormsyRadio value='bar' />
       </FormsyRadioGroup>
     </Form>
-);
+  );
 
   const formsyForm = wrapper.find(Form).node;
 
