@@ -3,7 +3,6 @@ import 'jsdom-global/register';
 import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import injectTapEvent from '../../test/injectTouchTap';
 
 import {mount} from 'enzyme';
 import Formsy, {Form} from 'formsy-react-2';
@@ -14,9 +13,6 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import FormsySelect from './FormsySelect';
-
-// TODO - Remove when MUI doesn't depend on this anymore
-injectTapEvent();
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -127,7 +123,7 @@ test('FormsySelect respects disabled prop of Formsy Form', (assert) => {
   assert.end();
 });
 
-test('FormsySelect disabled prop propagetes to Material UI AutoComplete', (assert) => {
+test('FormsySelect disabled prop propagetes to Material UI Select Field', (assert) => {
   const wrapper = mountWithContext(
     <Form>
       <FormsySelect name='test' disabled />
@@ -253,5 +249,5 @@ test('FormsySelect updates value as a controlled component', (assert) => {
 
   assert.equals(formsySelect.getValue(), 'bar');
 
-  assert.end();  
+  assert.end();
 });

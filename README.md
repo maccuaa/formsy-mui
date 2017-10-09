@@ -29,21 +29,22 @@ Formsy MUI is currently compatible with React 15.5x. For React 15.4.x and below 
 import React from 'react';
 import Formsy from 'formsy-react-2';
 import FormsyText from 'formsy-mui/FormsyText';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class MyForm extends React.Component {
   state = {
     formIsValid: false
   }
 
-  enableSubmit() {
+  enableSubmit = () => {
     this.setState({formIsValid: true});
   }
 
-  disableSubmit() {
+  disableSubmit = () => {
     this.setState({formIsValid: false});
   }
 
-  submit(model) {
+  submit (model) {
     console.log(model);
     // model = {
     //   foo: 'foo@foo.com',
@@ -51,16 +52,36 @@ class MyForm extends React.Component {
     // }
   }
 
-  // This code results in a form with Material UI text field and a submit button 
-  // that will run the `submit` method when the submit button is clicked with a 
-  // valid email. The submit button is disabled as long as the foo input is empty 
+  // This code results in a form with Material UI text field and a submit button
+  // that will run the `submit` method when the submit button is clicked with a
+  // valid email. The submit button is disabled as long as the foo input is empty
   // and the value is not an email. On validation error it will show the error message.
 
-  render() {
-    <Formsy.Form onValidSubmit={this.submit} onValid={this.enableSubmit} onInvalid={this.disableSubmit}>
-      <FormsyText name='foo' validations='isEmail' validationError='This is not a valid email' required />
-      <button type="submit" disabled={!this.state.formIsValid}>Submit</button>
-    </Formsy.Form>
+  render () {
+    return (
+      <Formsy.Form
+        onValidSubmit={this.submit}
+        onValid={this.enableSubmit}
+        onInvalid={this.disableSubmit}>
+
+        <div>
+          <FormsyText
+            name='foo'
+            validations='isEmail'
+            validationError='This is not a valid email'
+            required />
+        </div>
+
+        <div>
+          <RaisedButton
+            type='submit'
+            label='Submit'
+            disabled={!this.state.formIsValid} />
+        </div>
+      </Formsy.Form>
+    );
   }
 }
+
+export default MyForm;
 ```

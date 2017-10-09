@@ -3,7 +3,6 @@ import 'jsdom-global/register';
 import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import injectTapEvent from '../../test/injectTouchTap';
 
 import {mount} from 'enzyme';
 import Formsy, {Form} from 'formsy-react-2';
@@ -13,9 +12,6 @@ import Sinon from 'sinon';
 
 import DatePicker from 'material-ui/DatePicker';
 import FormsyDate from './FormsyDate';
-
-// TODO - Remove when MUI doesn't depend on this anymore
-injectTapEvent();
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -130,6 +126,52 @@ test('FormsyDate resetValue sets value back to original value', (assert) => {
   formsyDate.resetValue();
 
   assert.equals(formsyDate.getValue(), expected);
+
+  assert.end();
+});
+
+test('FormsyDate updates value as a controlled component', (assert) => {
+  const d1 = new Date(2017, 1, 1);
+  const d2 = new Date(2018, 1, 1);
+
+  class MyComponent extends React.PureComponent {
+    constructor (props) {
+      super(props);
+      this.state = {
+        value: d1
+      };
+    }
+
+    changeValue () {
+      this.setState({value: d2});
+    }
+
+    render () {
+      return (
+        <Form>
+          <FormsyDate name='test' value={this.state.value} />
+        </Form>
+      );
+    }
+  }
+
+  const wrapper = mountWithContext(<MyComponent />);
+
+  const myComponent = wrapper.find(MyComponent).node;
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formsyDate = wrapper.find(FormsyDate).node;
+
+  assert.equals(formsyDate.getValue(), d1);
+
+  assert.equals(formsyForm.getCurrentValues().test, d1);
+
+  myComponent.changeValue();
+
+  assert.equals(formsyDate.getValue(), d2);
+
+  assert.equals(formsyForm.getCurrentValues().test, d2);
 
   assert.end();
 });

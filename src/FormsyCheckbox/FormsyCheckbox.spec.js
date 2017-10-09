@@ -174,3 +174,53 @@ test('FormsyCheckbox updates value as a controlled component', (assert) => {
 
   assert.end();
 });
+
+test('FormsyCheckbox defaultChecked sends value to Formsy Form', (assert) => {
+  const wrapper = mountWithContext(
+    <Form>
+      <FormsyCheckbox name='test' defaultChecked />
+    </Form>
+  );
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const formsyCheckbox = wrapper.find(FormsyCheckbox).node;
+
+  const input = wrapper.find('input').node;
+
+  // Make sure the formsyCheckbox component has the right value
+  assert.true(formsyCheckbox.getValue());
+
+  // Make sure the Formsy Form component has the right value
+  assert.true(formsyForm.getCurrentValues().test);
+
+  // Make sure the DOM has the right value
+  assert.true(input.checked);
+
+  assert.end();
+});
+
+test('FormsyCheckbox is disabled when form is disabled', (assert) => {
+  const wrapper = mountWithContext(
+    <Form disabled>
+      <FormsyCheckbox name='test' checked />
+    </Form>
+  );
+
+  const formsyForm = wrapper.find(Form).node;
+
+  const checkbox = wrapper.find(Checkbox).node;
+
+  const input = wrapper.find('input').node;
+
+  // Make sure the Formsy Form component is disabled
+  assert.true(formsyForm.isFormDisabled());
+
+  // Make sure the Checkbox is disabled
+  assert.true(checkbox.props.disabled);
+
+  // Make sure the DOM has the right value
+  assert.true(input.disabled);
+
+  assert.end();
+});
