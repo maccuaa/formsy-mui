@@ -257,12 +257,14 @@ The form value must equal another field.
 <div>
   <FormsyText
     name='password1'
+    type='password'
     floatingLabelText='Password'
     required
     updateImmediately
   />
   <FormsyText
     name='password2'
+    type='password'
     floatingLabelText='Confirm Password'
     validations='equalsField:password1'
     validationError='Passwords do not match'

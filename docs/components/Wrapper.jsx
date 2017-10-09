@@ -60,7 +60,7 @@ class Wrapper extends React.Component {
         padding: '16px',
         border: 'solid 1px #ccc',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'flex-start'
       },
       rightPaneContainer: {
         display: 'flex',
@@ -85,7 +85,7 @@ class Wrapper extends React.Component {
         <div style={styles.container}>
           <div style={styles.item}>
             <Form
-              autocomplete='off'
+              autoComplete='off'
               onChange={this.onChange}
               onValid={this.onFormIsValid}
               onInvalid={this.onFormIsInvalid}

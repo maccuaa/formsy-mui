@@ -23,6 +23,10 @@ module.exports = {
     {
       name: 'Validations',
       content: 'docs/validations.md'
+    },
+    {
+      name: 'Examples',
+      content: 'docs/examples.md'
     }
   ],
   styleguideComponents: {
