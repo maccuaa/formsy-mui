@@ -41,10 +41,10 @@ module.exports = {
   styleguideDir: 'docs',
   title: 'Formsy MUI',
   theme: {
-    // '@font-face': {
-    //   fontFamily: 'Roboto',
-    //   src: 'url("https://fonts.googleapis.com/css?family=Roboto:300,400,500")'
-    // },
+    '@font-face': {
+      fontFamily: 'Roboto',
+      src: 'url("https://fonts.googleapis.com/css?family=Roboto:300,400,500")'
+    },
     fontFamily: {
       base: '"Roboto", "sans-serif"'
     }
