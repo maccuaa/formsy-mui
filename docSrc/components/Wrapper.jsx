@@ -53,7 +53,7 @@ class Wrapper extends React.Component {
       container: {
         display: 'flex',
         flex: '1 1 auto',
-        fontFamily: '"Roboto", "sans-serif"'
+        fontFamily: 'Roboto, sans-serif'
       },
       item: {
         width: '50%',

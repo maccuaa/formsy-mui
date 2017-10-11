@@ -1,6 +1,5 @@
 const { createConfig } = require('@webpack-blocks/webpack2');
 const babel = require('@webpack-blocks/babel6');
-const postcss = require('@webpack-blocks/postcss');
 const path = require('path');
 
 module.exports = {
@@ -40,17 +39,13 @@ module.exports = {
   ],
   styleguideDir: 'docs',
   title: 'Formsy MUI',
+  template: path.resolve(__dirname, 'docSrc/templates/index.html'),
   theme: {
-    '@font-face': {
-      fontFamily: 'Roboto',
-      src: 'url("https://fonts.googleapis.com/css?family=Roboto:300,400,500")'
-    },
     fontFamily: {
-      base: '"Roboto", "sans-serif"'
+      base: 'Roboto, sans-serif'
     }
   },
   webpackConfig: createConfig([
-    babel(),
-    postcss()
+    babel()
   ])
 };
