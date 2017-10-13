@@ -75,7 +75,7 @@
     "react-styleguidist": "6.0.30",
     "react-test-renderer": "15.6.1",
     "rimraf": "2.6.2",
-    "sinon": "3.2.1",
+    "sinon": "4.0.1",
     "tape": "4.8.0"
   },
   "peerDependencies": {
