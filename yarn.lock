@@ -2767,9 +2767,9 @@ formatio@1.2.0, formatio@^1.2.0:
   dependencies:
     samsam "1.x"
 
-formsy-react-2@0.20.1:
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/formsy-react-2/-/formsy-react-2-0.20.1.tgz#8de1886c6cc2c558009cfcf0221b3ef72fe658d8"
+formsy-react-2@0.20.4:
+  version "0.20.4"
+  resolved "https://registry.yarnpkg.com/formsy-react-2/-/formsy-react-2-0.20.4.tgz#9faad022195e0cbe34c8118cadcc73818654c76a"
   dependencies:
     form-data-to-object "^0.2.0"
     prop-types "^15.5.7"
