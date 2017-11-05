@@ -4,8 +4,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {mount} from 'enzyme';
 import Formsy, {Form} from 'formsy-react-2';
+
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import test from 'tape';
 import Sinon from 'sinon';
@@ -18,6 +20,8 @@ const mountWithContext = (node) => mount(node, {
   context: {muiTheme},
   childContextTypes: {muiTheme: PropTypes.object.isRequired}
 });
+
+Enzyme.configure({ adapter: new Adapter() });
 
 Formsy.addValidationRule('alwaysFalse', () => { return false; }, true);
 Formsy.addValidationRule('alwaysTrue', () => { return true; }, true);
@@ -42,11 +46,11 @@ test('FormsyDate value prop sends value to Formsy Form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
   assert.equals(formsyForm.getCurrentValues().test, expected);
 
-  const inputValue = wrapper.find('input').node.value;
+  const inputValue = wrapper.find('input').instance().value;
 
   // Material-UI will format the date to ISO 8601 (YYYY-MM-DD) format.
   assert.true(new RegExp(/(\d{4})-(\d{2})-(\d{2})/.test(inputValue)));
@@ -61,9 +65,9 @@ test('FormsyDate validation Errors are displayed', (assert) => {
     </Form>
   );
 
-  const formsyDate = wrapper.find(FormsyDate).node;
+  const formsyDate = wrapper.find(FormsyDate).instance();
 
-  const textField = wrapper.find('TextField').node;
+  const textField = wrapper.find('TextField').instance();
 
   assert.equals(formsyDate.getErrorMessage(), 'foo');
 
@@ -81,7 +85,7 @@ test('FormsyDate validation Errors are not displayed', (assert) => {
     </Form>
   );
 
-  const formsyDate = wrapper.find(FormsyDate).node;
+  const formsyDate = wrapper.find(FormsyDate).instance();
 
   assert.equals(formsyDate.getErrorMessage(), null);
 
@@ -115,7 +119,7 @@ test('FormsyDate resetValue sets value back to original value', (assert) => {
 
   const newDate = new Date();
 
-  const formsyDate = wrapper.find(FormsyDate).node;
+  const formsyDate = wrapper.find(FormsyDate).instance();
 
   assert.equals(formsyDate.getValue(), expected);
 
@@ -157,11 +161,11 @@ test('FormsyDate updates value as a controlled component', (assert) => {
 
   const wrapper = mountWithContext(<MyComponent />);
 
-  const myComponent = wrapper.find(MyComponent).node;
+  const myComponent = wrapper.find(MyComponent).instance();
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const formsyDate = wrapper.find(FormsyDate).node;
+  const formsyDate = wrapper.find(FormsyDate).instance();
 
   assert.equals(formsyDate.getValue(), d1);
 

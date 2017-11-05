@@ -4,8 +4,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {mount} from 'enzyme';
 import {Form} from 'formsy-react-2';
+
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import test from 'tape';
 import Sinon from 'sinon';
@@ -13,6 +15,8 @@ import Sinon from 'sinon';
 import RadioButtonGroup from 'material-ui/RadioButton/RadioButtonGroup';
 import FormsyRadio from '../FormsyRadio';
 import FormsyRadioGroup from './FormsyRadioGroup';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -43,9 +47,9 @@ test('FormsyRadioGroup sends value to Formsy Form', (assert) => {
 
   const expected = 'foo';
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const input = wrapper.find('input').node;
+  const input = wrapper.find('input').instance();
 
   // Make sure the Formsy Form component has the right value
   assert.equals(formsyForm.getCurrentValues().test, expected);
@@ -66,35 +70,35 @@ test('FormsyRadioGroup resetValue sets value back to original value', (assert) =
     </Form>
   );
 
-  const formsyRadioGroup = wrapper.find(FormsyRadioGroup).node;
+  const formsyRadioGroup = wrapper.find(FormsyRadioGroup).instance();
 
-  const fooInput = wrapper.find({value: 'foo'});
+  const fooInput = wrapper.find({value: 'foo'}).last();
 
-  const barInput = wrapper.find({value: 'bar'});
+  const barInput = wrapper.find({value: 'bar'}).last();
 
-  assert.false(barInput.node.checked);
+  assert.false(barInput.instance().checked);
 
-  assert.true(fooInput.node.checked);
+  assert.true(fooInput.instance().checked);
 
   assert.equals(formsyRadioGroup.getValue(), 'foo');
 
-  barInput.node.checked = true;
+  barInput.instance().checked = true;
 
   barInput.simulate('change');
 
   assert.equals(formsyRadioGroup.getValue(), 'bar');
 
-  assert.true(barInput.node.checked);
+  assert.true(barInput.instance().checked);
 
-  assert.false(fooInput.node.checked);
+  assert.false(fooInput.instance().checked);
 
   formsyRadioGroup.resetValue();
 
   assert.equals(formsyRadioGroup.getValue(), 'foo');
 
-  assert.false(barInput.node.checked);
+  assert.false(barInput.instance().checked);
 
-  assert.true(fooInput.node.checked);
+  assert.true(fooInput.instance().checked);
 
   assert.end();
 });
@@ -110,7 +114,7 @@ test('FormsyRadioGroup onChange prop is called', (assert) => {
     </Form>
   );
 
-  wrapper.find({value: 'foo'}).simulate('change');
+  wrapper.find({value: 'foo'}).last().simulate('change');
 
   assert.true(onChangeSpy.calledOnce);
 
@@ -140,7 +144,7 @@ test('FormsyRadioGroup falsey valueSelected values are correctly set', (assert) 
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
   const formValues = formsyForm.getCurrentValues();
 
@@ -178,7 +182,7 @@ test('FormsyRadioGroup falsey defaultSelected values are correctly set', (assert
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
   const formValues = formsyForm.getCurrentValues();
 
@@ -220,23 +224,23 @@ test('FormsyRadioGroup updates value as a controlled component', (assert) => {
 
   const wrapper = mountWithContext(<MyComponent />);
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const myComponent = wrapper.find(MyComponent).node;
+  const myComponent = wrapper.find(MyComponent).instance();
 
-  const formsyRadioGroup = wrapper.find(FormsyRadioGroup).node;
+  const formsyRadioGroup = wrapper.find(FormsyRadioGroup).instance();
 
-  const radioButtonGroup = wrapper.find(RadioButtonGroup).node;
+  const radioButtonGroup = wrapper.find(RadioButtonGroup).instance();
 
-  const fooInput = wrapper.find({value: 'foo'});
+  const fooInput = wrapper.find({value: 'foo'}).last();
 
-  const barInput = wrapper.find({value: 'bar'});
+  const barInput = wrapper.find({value: 'bar'}).last();
 
   assert.equals(formsyForm.getCurrentValues().test, 'foo');
 
-  assert.false(barInput.node.checked);
+  assert.false(barInput.instance().checked);
 
-  assert.true(fooInput.node.checked);
+  assert.true(fooInput.instance().checked);
 
   assert.equals(formsyRadioGroup.getValue(), 'foo');
 
@@ -246,9 +250,9 @@ test('FormsyRadioGroup updates value as a controlled component', (assert) => {
 
   assert.equals(formsyForm.getCurrentValues().test, 'bar');
 
-  assert.true(barInput.node.checked);
+  assert.true(barInput.instance().checked);
 
-  assert.false(fooInput.node.checked);
+  assert.false(fooInput.instance().checked);
 
   assert.equals(formsyRadioGroup.getValue(), 'bar');
 

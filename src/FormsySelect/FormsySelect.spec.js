@@ -4,8 +4,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {mount} from 'enzyme';
 import Formsy, {Form} from 'formsy-react-2';
+
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import test from 'tape';
 
@@ -13,6 +15,8 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 import FormsySelect from './FormsySelect';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -44,7 +48,7 @@ test('FormsySelect value prop sends value to Formsy Form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
   const expected = 'foo';
 
@@ -60,9 +64,9 @@ test('FormsySelect validation Errors are displayed', (assert) => {
     </Form>
   );
 
-  const formsySelect = wrapper.find(FormsySelect).node;
+  const formsySelect = wrapper.find(FormsySelect).instance();
 
-  const textField = wrapper.find(TextField).node;
+  const textField = wrapper.find(TextField).instance();
 
   assert.equals(formsySelect.getErrorMessage(), 'foo');
 
@@ -80,7 +84,7 @@ test('FormsySelect validation Errors are not displayed', (assert) => {
     </Form>
   );
 
-  const formsySelect = wrapper.find(FormsySelect).node;
+  const formsySelect = wrapper.find(FormsySelect).instance();
 
   assert.equals(formsySelect.getErrorMessage(), null);
 
@@ -96,7 +100,7 @@ test('FormsySelect resetValue sets value back to original value', (assert) => {
     </Form>
   );
 
-  const formsySelect = wrapper.find(FormsySelect).node;
+  const formsySelect = wrapper.find(FormsySelect).instance();
 
   assert.equals(formsySelect.getValue(), 'foo');
 
@@ -118,7 +122,7 @@ test('FormsySelect respects disabled prop of Formsy Form', (assert) => {
     </Form>
   );
 
-  assert.true(wrapper.find(TextField).node.props.disabled);
+  assert.true(wrapper.find(TextField).instance().props.disabled);
 
   assert.end();
 });
@@ -130,11 +134,11 @@ test('FormsySelect disabled prop propagetes to Material UI Select Field', (asser
     </Form>
   );
 
-  assert.true(wrapper.find(FormsySelect).node.props.disabled);
+  assert.true(wrapper.find(FormsySelect).instance().props.disabled);
 
-  assert.true(wrapper.find(SelectField).node.props.disabled);
+  assert.true(wrapper.find(SelectField).instance().props.disabled);
 
-  assert.true(wrapper.find(TextField).node.props.disabled);
+  assert.true(wrapper.find(TextField).instance().props.disabled);
 
   assert.end();
 });
@@ -146,13 +150,13 @@ test('FormsySelect allows overriding Formsy Form disabled prop', (assert) => {
     </Form>
   );
 
-  assert.true(wrapper.node.props.disabled);
+  assert.true(wrapper.instance().props.disabled);
 
-  assert.false(wrapper.find(FormsySelect).node.props.disabled);
+  assert.false(wrapper.find(FormsySelect).instance().props.disabled);
 
-  assert.false(wrapper.find(SelectField).node.props.disabled);
+  assert.false(wrapper.find(SelectField).instance().props.disabled);
 
-  assert.false(wrapper.find(TextField).node.propsdisabled);
+  assert.false(wrapper.find(TextField).instance().propsdisabled);
 
   assert.end();
 });
@@ -164,11 +168,11 @@ test('FormsySelect required prop invalidates form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const formsySelect = wrapper.find(FormsySelect).node;
+  const formsySelect = wrapper.find(FormsySelect).instance();
 
-  const textField = wrapper.find(TextField).node;
+  const textField = wrapper.find(TextField).instance();
 
   assert.false(formsyForm.state.isValid);
 
@@ -190,9 +194,9 @@ test('FormsySelect requiredError message is displayed', (assert) => {
     </Form>
   );
 
-  const formsySelect = wrapper.find(FormsySelect).node;
+  const formsySelect = wrapper.find(FormsySelect).instance();
 
-  const textField = wrapper.find(TextField).node;
+  const textField = wrapper.find(TextField).instance();
 
   // Required error will not be displayed until the form is submitted
   assert.equals(formsySelect.getErrorMessage(), null);
@@ -233,11 +237,11 @@ test('FormsySelect updates value as a controlled component', (assert) => {
 
   const wrapper = mountWithContext(<MyComponent />);
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const formsySelect = wrapper.find(FormsySelect).node;
+  const formsySelect = wrapper.find(FormsySelect).instance();
 
-  const myComponent = wrapper.find(MyComponent).node;
+  const myComponent = wrapper.find(MyComponent).instance();
 
   assert.equals(formsyForm.getCurrentValues().test, 'foo');
 

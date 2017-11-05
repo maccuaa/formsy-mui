@@ -4,14 +4,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {mount} from 'enzyme';
 import {Form} from 'formsy-react-2';
+
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import Toggle from 'material-ui/Toggle';
 import FormsyToggle from './FormsyToggle';
 
 import test from 'tape';
 import Sinon from 'sinon';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -38,11 +42,11 @@ test('FormsyToggle sends value to Formsy Form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const formsyToggle = wrapper.find(FormsyToggle).node;
+  const formsyToggle = wrapper.find(FormsyToggle).instance();
 
-  const input = wrapper.find('input').node;
+  const input = wrapper.find('input').instance();
 
   // Make sure the formsyToggle component has the right value
   assert.true(formsyToggle.getValue());
@@ -63,13 +67,13 @@ test('FormsyToggle change event propogates value to Formsy Form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const formsyToggle = wrapper.find(FormsyToggle).node;
+  const formsyToggle = wrapper.find(FormsyToggle).instance();
 
   const input = wrapper.find('input');
 
-  input.node.checked = true;
+  input.instance().checked = true;
 
   input.simulate('change');
 
@@ -89,13 +93,13 @@ test('FormsyToggle resetValue sets value back to original value', (assert) => {
     </Form>
   );
 
-  const formsyToggle = wrapper.find(FormsyToggle).node;
+  const formsyToggle = wrapper.find(FormsyToggle).instance();
 
   const input = wrapper.find('input');
 
-  assert.equals(input.node.checked, false);
+  assert.equals(input.instance().checked, false);
 
-  input.node.checked = true;
+  input.instance().checked = true;
 
   input.simulate('change');
 
@@ -105,7 +109,7 @@ test('FormsyToggle resetValue sets value back to original value', (assert) => {
 
   assert.false(formsyToggle.getValue());
 
-  assert.false(input.node.checked);
+  assert.false(input.instance().checked);
 
   assert.end();
 });
@@ -150,11 +154,11 @@ test('FormsyToggle updates value as a controlled component', (assert) => {
 
   const wrapper = mountWithContext(<MyComponent />);
 
-  const myComponent = wrapper.find(MyComponent).node;
+  const myComponent = wrapper.find(MyComponent).instance();
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const formsyToggle = wrapper.find(FormsyToggle).node;
+  const formsyToggle = wrapper.find(FormsyToggle).instance();
 
   const input = wrapper.find('input');
 
@@ -162,7 +166,7 @@ test('FormsyToggle updates value as a controlled component', (assert) => {
 
   assert.true(formsyForm.getCurrentValues().test);
 
-  assert.true(input.node.checked);
+  assert.true(input.instance().checked);
 
   myComponent.changeValue();
 
@@ -170,7 +174,7 @@ test('FormsyToggle updates value as a controlled component', (assert) => {
 
   assert.false(formsyForm.getCurrentValues().test);
 
-  assert.false(input.node.checked);
+  assert.false(input.instance().checked);
 
   assert.end();
 });

@@ -4,14 +4,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {mount} from 'enzyme';
 import {Form} from 'formsy-react-2';
+
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import test from 'tape';
 import Sinon from 'sinon';
 
 import AutoComplete from 'material-ui/AutoComplete';
+import TextField from 'material-ui/TextField';
 import FormsyAutoComplete from './FormsyAutoComplete';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -38,9 +43,9 @@ test('FormsyAutoComplete change event propogates value to Formsy Form', (assert)
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.instance();
 
-  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).node;
+  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).instance();
 
   const expected = 'foo';
 
@@ -53,7 +58,7 @@ test('FormsyAutoComplete change event propogates value to Formsy Form', (assert)
   assert.equals(formsyForm.getCurrentValues().test, expected);
 
   // Make sure the DOM has the right value
-  assert.equals(wrapper.find('input').node.value, expected);
+  assert.equals(wrapper.find('input').instance().value, expected);
 
   assert.end();
 });
@@ -65,13 +70,13 @@ test('FormsyAutoComplete searchText prop sends value to Formsy Form', (assert) =
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.instance();
 
   const expected = 'foo';
 
   assert.equals(formsyForm.getCurrentValues().test, expected);
 
-  assert.equals(wrapper.find('input').node.value, expected);
+  assert.equals(wrapper.find('input').instance().value, expected);
 
   assert.end();
 });
@@ -83,9 +88,9 @@ test('FormsyAutoComplete validation Errors are displayed', (assert) => {
     </Form>
   );
 
-  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).node;
+  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).instance();
 
-  const textField = wrapper.find('TextField').node;
+  const textField = wrapper.find(TextField).instance();
 
   assert.equals(formsyAutoComplete.getErrorMessage(), 'foo');
 
@@ -103,7 +108,7 @@ test('FormsyAutoComplete validation Errors are not displayed', (assert) => {
     </Form>
   );
 
-  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).node;
+  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).instance();
 
   assert.equals(formsyAutoComplete.getErrorMessage(), null);
 
@@ -119,7 +124,7 @@ test('FormsyAutoComplete resetValue sets value back to original value', (assert)
     </Form>
   );
 
-  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).node;
+  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).instance();
 
   assert.equals(formsyAutoComplete.getValue(), 'foo');
 
@@ -141,7 +146,7 @@ test('FormsyAutoComplete Blur event updates the value', (assert) => {
     </Form>
   );
 
-  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).node;
+  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).instance();
 
   assert.equals(formsyAutoComplete.getValue(), 'foo');
 
@@ -175,7 +180,7 @@ test('FormsyAutoComplete respects disabled prop of Formsy Form', (assert) => {
     </Form>
   );
 
-  assert.true(wrapper.find('input').node.disabled);
+  assert.true(wrapper.find('input').instance().disabled);
 
   assert.end();
 });
@@ -187,11 +192,11 @@ test('FormsyAutoComplete disabled prop propagetes to Material UI AutoComplete', 
     </Form>
   );
 
-  assert.true(wrapper.find(FormsyAutoComplete).node.props.disabled);
+  assert.true(wrapper.find(FormsyAutoComplete).instance().props.disabled);
 
-  assert.true(wrapper.find(AutoComplete).node.props.disabled);
+  assert.true(wrapper.find(AutoComplete).instance().props.disabled);
 
-  assert.true(wrapper.find('input').node.disabled);
+  assert.true(wrapper.find('input').instance().disabled);
 
   assert.end();
 });
@@ -203,13 +208,13 @@ test('FormsyAutoComplete allows overriding Formsy Form disabled prop', (assert) 
     </Form>
   );
 
-  assert.true(wrapper.node.props.disabled);
+  assert.true(wrapper.instance().props.disabled);
 
-  assert.false(wrapper.find(FormsyAutoComplete).node.props.disabled);
+  assert.false(wrapper.find(FormsyAutoComplete).instance().props.disabled);
 
-  assert.false(wrapper.find(AutoComplete).node.props.disabled);
+  assert.false(wrapper.find(AutoComplete).instance().props.disabled);
 
-  assert.false(wrapper.find('input').node.disabled);
+  assert.false(wrapper.find('input').instance().disabled);
 
   assert.end();
 });
@@ -221,11 +226,11 @@ test('FormsyAutoComplete required prop invalidates form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.instance();
 
-  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).node;
+  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).instance();
 
-  const input = wrapper.find('input').node;
+  const input = wrapper.find('input').instance();
 
   assert.false(formsyForm.state.isValid);
 
@@ -247,9 +252,9 @@ test('FormsyAutoComplete requiredError message is displayed', (assert) => {
     </Form>
   );
 
-  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).node;
+  const formsyAutoComplete = wrapper.find(FormsyAutoComplete).instance();
 
-  const textField = wrapper.find('TextField').node;
+  const textField = wrapper.find(TextField).instance();
 
   // Required error will not be displayed until the form is submitted
   assert.equals(formsyAutoComplete.getErrorMessage(), null);

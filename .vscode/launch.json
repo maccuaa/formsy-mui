@@ -13,9 +13,7 @@
       "windows": {
         "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node.cmd"
       },
-      "runtimeArgs": [
-        "--nolazy"
-      ],"args": [
+      "args": [
         "test/index.js"
       ],
       "env": {

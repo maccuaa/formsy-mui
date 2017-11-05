@@ -4,14 +4,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {mount} from 'enzyme';
 import {Form} from 'formsy-react-2';
+
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import test from 'tape';
 import Sinon from 'sinon';
 
 import TextField from 'material-ui/TextField';
 import FormsyText from './FormsyText';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -38,9 +42,9 @@ test('FormsyText change event propogates value to Formsy Form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const formsyTextField = wrapper.find(FormsyText).node;
+  const formsyTextField = wrapper.find(FormsyText).instance();
 
   const expected = 'foo';
 
@@ -53,7 +57,7 @@ test('FormsyText change event propogates value to Formsy Form', (assert) => {
   assert.equals(formsyForm.getCurrentValues().test, expected);
 
   // Make sure the DOM has the right value
-  assert.equals(wrapper.find('input').node.value, expected);
+  assert.equals(wrapper.find('input').instance().value, expected);
 
   assert.end();
 });
@@ -81,15 +85,15 @@ test('FormsyText value prop sends value to Formsy Form', (assert) => {
   }
   const wrapper = mountWithContext(<MyComponent />);
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const myComponent = wrapper.find(MyComponent).node;
+  const myComponent = wrapper.find(MyComponent).instance();
 
-  const textField = wrapper.find(TextField).node;
+  const textField = wrapper.find(TextField).instance();
 
   assert.equals(formsyForm.getCurrentValues().test, 'foo');
 
-  assert.equals(wrapper.find('input').node.value, 'foo');
+  assert.equals(wrapper.find('input').instance().value, 'foo');
 
   assert.equals(textField.getValue(), 'foo');
 
@@ -99,7 +103,7 @@ test('FormsyText value prop sends value to Formsy Form', (assert) => {
 
   assert.equals(textField.getValue(), 'bar');
 
-  assert.equals(wrapper.find('input').node.value, 'bar');
+  assert.equals(wrapper.find('input').instance().value, 'bar');
 
   assert.end();
 });
@@ -111,9 +115,9 @@ test('FormsyText validation Errors are displayed', (assert) => {
     </Form>
   );
 
-  const formsyTextField = wrapper.find(FormsyText).node;
+  const formsyTextField = wrapper.find(FormsyText).instance();
 
-  const textField = wrapper.find(TextField).node;
+  const textField = wrapper.find(TextField).instance();
 
   assert.equals(formsyTextField.getErrorMessage(), 'foo');
 
@@ -131,7 +135,7 @@ test('FormsyText validation Errors are not displayed', (assert) => {
     </Form>
   );
 
-  const formsyTextField = wrapper.find(FormsyText).node;
+  const formsyTextField = wrapper.find(FormsyText).instance();
 
   assert.equals(formsyTextField.getErrorMessage(), null);
 
@@ -147,7 +151,7 @@ test('FormsyText resetValue sets value back to original value', (assert) => {
     </Form>
   );
 
-  const formsyTextField = wrapper.find(FormsyText).node;
+  const formsyTextField = wrapper.find(FormsyText).instance();
 
   assert.equals(formsyTextField.getValue(), 'foo');
 
@@ -169,7 +173,7 @@ test('FormsyText Blur event updates the value', (assert) => {
     </Form>
   );
 
-  const formsyTextField = wrapper.find(FormsyText).node;
+  const formsyTextField = wrapper.find(FormsyText).instance();
 
   assert.equals(formsyTextField.getValue(), 'foo');
 
@@ -219,7 +223,7 @@ test('FormsyText respects disabled prop of Formsy Form', (assert) => {
     </Form>
   );
 
-  assert.true(wrapper.find('input').node.disabled);
+  assert.true(wrapper.find('input').instance().disabled);
 
   assert.end();
 });
@@ -231,11 +235,11 @@ test('FormsyText disabled prop propagetes to Material UI TextField', (assert) =>
     </Form>
   );
 
-  assert.true(wrapper.find(FormsyText).node.props.disabled);
+  assert.true(wrapper.find(FormsyText).instance().props.disabled);
 
-  assert.true(wrapper.find(TextField).node.props.disabled);
+  assert.true(wrapper.find(TextField).instance().props.disabled);
 
-  assert.true(wrapper.find('input').node.disabled);
+  assert.true(wrapper.find('input').instance().disabled);
 
   assert.end();
 });
@@ -247,13 +251,13 @@ test('FormsyText allows overriding Formsy Form disabled prop', (assert) => {
     </Form>
   );
 
-  assert.true(wrapper.node.props.disabled);
+  assert.true(wrapper.instance().props.disabled);
 
-  assert.false(wrapper.find(FormsyText).node.props.disabled);
+  assert.false(wrapper.find(FormsyText).instance().props.disabled);
 
-  assert.false(wrapper.find(TextField).node.props.disabled);
+  assert.false(wrapper.find(TextField).instance().props.disabled);
 
-  assert.false(wrapper.find('input').node.disabled);
+  assert.false(wrapper.find('input').instance().disabled);
 
   assert.end();
 });
@@ -265,11 +269,11 @@ test('FormsyText required prop invalidates form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const formsyTextField = wrapper.find(FormsyText).node;
+  const formsyTextField = wrapper.find(FormsyText).instance();
 
-  const input = wrapper.find('input').node;
+  const input = wrapper.find('input').instance();
 
   assert.false(formsyForm.state.isValid);
 
@@ -291,9 +295,9 @@ test('FormsyText requiredError message is displayed', (assert) => {
     </Form>
   );
 
-  const formsyTextField = wrapper.find(FormsyText).node;
+  const formsyTextField = wrapper.find(FormsyText).instance();
 
-  const textField = wrapper.find(TextField).node;
+  const textField = wrapper.find(TextField).instance();
 
   // Required error will not be displayed until the form is submitted
   assert.equals(formsyTextField.getErrorMessage(), null);
@@ -314,7 +318,7 @@ test('FormsyText only show error message on blur', (assert) => {
     </Form>
   );
 
-  const formsyText = wrapper.find(FormsyText).node;
+  const formsyText = wrapper.find(FormsyText).instance();
 
   const input = wrapper.find('input');
 
@@ -341,7 +345,7 @@ test('FormsyText updateImmediately shows error after debounce limit', async (ass
     </Form>
   );
 
-  const formsyText = wrapper.find(FormsyText).node;
+  const formsyText = wrapper.find(FormsyText).instance();
 
   const input = wrapper.find('input');
 
@@ -379,7 +383,7 @@ test('FormsyText falsey values are correctly set', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
   const formValues = formsyForm.getCurrentValues();
 
@@ -409,7 +413,7 @@ test('FormsyText falsey defaultValues are correctly set', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
   const formValues = formsyForm.getCurrentValues();
 

@@ -4,14 +4,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {mount} from 'enzyme';
 import {Form} from 'formsy-react-2';
+
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import test from 'tape';
 
 import RadioButton from 'material-ui/RadioButton';
 import FormsyRadio from './FormsyRadio';
 import FormsyRadioGroup from '../FormsyRadioGroup';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -43,11 +47,11 @@ test('FormsyRadio change event propogates value to Formsy Form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
-  const input = wrapper.find({value: 'bar'});
+  const input = wrapper.find({value: 'bar'}).last();
 
-  input.node.checked = true;
+  input.instance().checked = true;
 
   input.simulate('change');
 

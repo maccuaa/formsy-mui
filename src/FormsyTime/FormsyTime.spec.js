@@ -4,14 +4,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import {mount} from 'enzyme';
 import Formsy, {Form} from 'formsy-react-2';
+
+import Enzyme, { mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import test from 'tape';
 import Sinon from 'sinon';
 
 import TimePicker from 'material-ui/TimePicker';
 import FormsyTime from './FormsyTime';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const muiTheme = getMuiTheme();
 const mountWithContext = (node) => mount(node, {
@@ -42,11 +46,11 @@ test('FormsyTime value prop sends value to Formsy Form', (assert) => {
     </Form>
   );
 
-  const formsyForm = wrapper.find(Form).node;
+  const formsyForm = wrapper.find(Form).instance();
 
   assert.equals(formsyForm.getCurrentValues().test, expected);
 
-  const inputValue = wrapper.find('input').node.value;
+  const inputValue = wrapper.find('input').instance().value;
 
   // Material-UI will format the date to ISO 8601 (YYYY-MM-DD) format.
   assert.true(new RegExp(/(\d{4})-(\d{2})-(\d{2})/.test(inputValue)));
@@ -61,9 +65,9 @@ test('FormsyTime validation Errors are displayed', (assert) => {
     </Form>
   );
 
-  const formsyTime = wrapper.find(FormsyTime).node;
+  const formsyTime = wrapper.find(FormsyTime).instance();
 
-  const textField = wrapper.find('TextField').node;
+  const textField = wrapper.find('TextField').instance();
 
   assert.equals(formsyTime.getErrorMessage(), 'foo');
 
@@ -81,7 +85,7 @@ test('FormsyTime validation Errors are not displayed', (assert) => {
     </Form>
   );
 
-  const formsyTime = wrapper.find(FormsyTime).node;
+  const formsyTime = wrapper.find(FormsyTime).instance();
 
   assert.equals(formsyTime.getErrorMessage(), null);
 
@@ -115,7 +119,7 @@ test('FormsyTime resetValue sets value back to original value', (assert) => {
 
   const newDate = new Date();
 
-  const formsyTime = wrapper.find(FormsyTime).node;
+  const formsyTime = wrapper.find(FormsyTime).instance();
 
   assert.equals(formsyTime.getValue(), expected);
 
